@@ -1,9 +1,9 @@
 <html>
 <head>
-    <title>Contact us</title>
+    <title>Welcome</title>
 </head>
 <body>
-    <h1>Contact us</h1>
+    <h1>Please enter your name, url of the product, and your email.</h1>
 
     {% if form.errors %}
         <p style="color: red;">
@@ -11,7 +11,7 @@
         </p>
     {% endif %}
 
-    <form action="" method="post">
+    <form action="" method="post">{% csrf_token%}
         <table>
             {{ form.as_table }}
         </table>
