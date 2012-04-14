@@ -7,9 +7,11 @@ class User(models.Model):
     email = models.EmailField()
 
 class Item(models.Model):
-    url = models.URLField()
+    product_id = models.CharField(max_length=20)
+    name = models.CharField(max_length=30)
     price = models.DecimalField(max_digits = 10, decimal_places=2)
     price_date = models.DateField()
+    url = models.URLField()
 
 class TrackList(models.Model):
     user = models.ForeignKey(User)
