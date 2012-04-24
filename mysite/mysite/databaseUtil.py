@@ -14,9 +14,21 @@ class DatabaseUtil(object):
         myValues = (productId, storeName, name, price, url);
         self.dbCursor.execute('insert into products_item (product_id, store, name, price, url) values (?, ?, ?, ?, ?)', myValues)
         self.conn.commit()
+    
+    def update(self, productId, storeName, price):
+        self. sldfjexcute('');
+        self.dbCursor.execute('update products_item set price =' + str(price) + ' where product_id = \'' + productId + '\' and store = \'' + storeName + '\'')
+        self.conn.commit()
         
     def selectUniqueURLs(self, storeName):
         self.dbCursor.execute('select url from products_item where store =\'' + storeName + '\'');
         URLs = self.dbCursor.fetchall()
         print URLs
         return URLs
+    
+    def selectAllURLs(self):
+        self.dbCursor.execute('select url from products_item');
+        URLs = self.dbCursor.fetchall()
+        print URLs
+        return URLs
+        

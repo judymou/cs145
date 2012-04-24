@@ -37,5 +37,9 @@ print elapsed
 
 filePath = "/Users/belovedjudymou/Documents/schoolProject/cs145/mysite/sqlite3db/mydb.db"
 myDB = DatabaseUtil(filePath)
-myDB.insert(asin, 'amazon', title[0], float(price[0].replace("$", "")), url)
+#myDB.insert(asin, 'amazon', title[0], float(price[0].replace("$", "")), url)
 myDB.selectUniqueURLs('amazon')
+myDB.update(asin, 'amazon', 3)
+
+# arrayStores = ['ama', 'best']
+# select * from balh where store = amazon
