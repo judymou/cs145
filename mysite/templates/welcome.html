@@ -1,10 +1,14 @@
 <html>
 <head>
     <title>Welcome</title>
+<link href="font.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="welcome.css" media="screen" rel="stylesheet" type="text/css" />
 </head>
 <body>
+
     <h1>Please enter your name, url of the product, and your email.</h1>
 
+    <div id="login_box">    
     {% if form.errors %}
         <p style="color: red;">
             Please correct the error{{ form.errors|pluralize }} below.
@@ -16,6 +20,8 @@
             {{ form.as_table }}
         </table>
         <input type="submit" value="Submit">
+        <p> Already a member? <a link href="">Sign in</a></p>
     </form>
+    </div>
 </body>
 </html>
