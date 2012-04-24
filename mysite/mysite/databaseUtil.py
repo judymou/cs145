@@ -9,14 +9,14 @@ class DatabaseUtil(object):
     # name varchar
     # price double
     # url varchar
-    def insert(self, productId, name, price, url):
-        # example: myValues = ('bb', 'hellob', 1.23, '12345',)
-        myValues = (productId, name, price, url);
-        self.dbCursor.execute('insert into products_item (product_id, name, price, url) values (?, ?, ?, ?)', myValues)
+    def insert(self, productId, storeName, name, price, url):
+        # example: myValues = ('bb', 'amazon', 'hellob', 1.23, '12345',)
+        myValues = (productId, storeName, name, price, url);
+        self.dbCursor.execute('insert into products_item (product_id, store, name, price, url) values (?, ?, ?, ?, ?)', myValues)
         self.conn.commit()
         
-    def selectUniqueURLs(self):
-        self.dbCursor.execute('select url from products_item')
+    def selectUniqueURLs(self, storeName):
+        self.dbCursor.execute('select url from products_item where store =\'' + storeName + '\'');
         URLs = self.dbCursor.fetchall()
         print URLs
         return URLs

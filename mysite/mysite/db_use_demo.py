@@ -37,5 +37,5 @@ print elapsed
 
 filePath = "/Users/belovedjudymou/Documents/schoolProject/cs145/mysite/sqlite3db/mydb.db"
 myDB = DatabaseUtil(filePath)
-myDB.insert(asin, title[0], float(price[0].replace("$", "")), url)
-myDB.selectUniqueURLs()
+myDB.insert(asin, 'amazon', title[0], float(price[0].replace("$", "")), url)
+myDB.selectUniqueURLs('amazon')

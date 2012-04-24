@@ -1,0 +1,9 @@
+drop table products_item;
+CREATE TABLE "products_item" (
+    "product_id" varchar(20) NOT NULL PRIMARY KEY,
+    "store" varchar(10) NOT NULL,
+    "name" varchar(30) NOT NULL,
+    "price" decimal NOT NULL,
+    "url" varchar(200) NOT NULL,
+    "price_date" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
