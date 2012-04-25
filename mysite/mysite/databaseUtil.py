@@ -16,18 +16,16 @@ class DatabaseUtil(object):
         self.conn.commit()
     
     def update(self, productId, storeName, price):
-        self.dbCursor.execute('update products_item set price =' + str(price) + ' where product_id = \'' + productId + '\' and store = \'' + storeName + '\'')
+        self.dbCursor.execute('update products_item set price =' + str(price) + ', price_date = current_timestamp where product_id = \'' + productId + '\' and store = \'' + storeName + '\'')
         self.conn.commit()
         
     def selectUniqueURLs(self, storeName):
         self.dbCursor.execute('select url from products_item where store =\'' + storeName + '\'');
         URLs = self.dbCursor.fetchall()
-        print URLs
         return URLs
     
     def selectAllURLs(self):
         self.dbCursor.execute('select url from products_item');
         URLs = self.dbCursor.fetchall()
-        print URLs
         return URLs
         
