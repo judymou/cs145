@@ -1,18 +1,21 @@
 drop table products_item;
+drop table products_user;
+drop table products_tracklist;
+
 CREATE TABLE "products_item" (
+    "id" integer NOT NULL PRIMARY KEY,
     "product_id" varchar(20) NOT NULL,
     "store" varchar(10) NOT NULL,
     "name" varchar(30) NOT NULL,
     "price" decimal NOT NULL,
     "url" varchar(200) NOT NULL,
     "price_date" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (product_id, store)
+    UNIQUE (product_id, store)
 );
 
 CREATE TABLE "products_user" (
     "id" integer NOT NULL PRIMARY KEY,
-    "first_name" varchar(30) NOT NULL,
-    "last_name" varchar(40) NOT NULL,
+    "username" varchar(30) NOT NULL,
     "email" varchar(75) NOT NULL,
     "password" varchar(10) NOT NULL
 );
@@ -22,3 +25,4 @@ CREATE TABLE "products_tracklist" (
     "user_id" integer NOT NULL REFERENCES "products_user" ("id"),
     "item_id" integer NOT NULL REFERENCES "products_item" ("id")
 );
+commit;

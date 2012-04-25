@@ -16,7 +16,6 @@ class DatabaseUtil(object):
         self.conn.commit()
     
     def update(self, productId, storeName, price):
-        self. sldfjexcute('');
         self.dbCursor.execute('update products_item set price =' + str(price) + ' where product_id = \'' + productId + '\' and store = \'' + storeName + '\'')
         self.conn.commit()
         

@@ -4,12 +4,13 @@ import views
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
-
 urlpatterns = patterns('',
     ('^hello/$', views.hello),
     ('^time/$', views.current_datetime),
     ('^welcome/$', views.product),
-    ('^welcome1/$', views.product),
+    ('^mypage/$', views.mypage),
+    ('^login/$', views.login),
+    ('^lost/$', views.lost),
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^mysite/', include('mysite.foo.urls')),
