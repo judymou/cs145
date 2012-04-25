@@ -4,6 +4,8 @@ from django.template import RequestContext
 import datetime
 from products.models import *
 from mysite.forms import *
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 def hello(request):
     return HttpResponse("Hello world")
@@ -49,8 +51,10 @@ def lost(request):
     else:
         form = LoginForm(initial= {'email':'why_why@yahoo.com'})
     return render_to_response('lost.html', {'form': form}, context_instance=RequestContext(request))
-    
+
+@login_required
 def mypage(request):
+    print request.user.id
     return render_to_response('my_page.html')
 
 
