@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     ('^mypage/$', views.mypage),
     ('^login/$', views.login),
     ('^lost/$', views.lost),
+    ('^product/$', views.enter_product),
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^mysite/', include('mysite.foo.urls')),

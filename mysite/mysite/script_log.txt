@@ -1,0 +1,23 @@
+LOG file for all past cronjobs
+ERROR at Wed Apr 25 03:20:28 2012
+ERROR at 2012-04-25 10:24:24
+ERROR at 2012-04-25 10:25:36
+ERROR at 2012-04-25 10:25:59
+name 'selectAllURLs' is not definedERROR at 2012-04-25 10:30:45
+'module' object has no attribute 'selectAllURLs'ERROR at 2012-04-25 10:31:39
+'module' object has no attribute 'selectAllURLs'
+ERROR at 2012-04-25 10:40:39
+unbound method selectAllURLs() must be called with DatabaseUtil instance as first argument (got nothing instead)
+ERROR at 2012-04-25 10:47:00
+nonnumeric port: ''
+Successful cronjob at 2012-04-25 10:48:32
+Successful cronjob at 2012-04-25 10:49:30
+ERROR at 2012-04-25 10:49:49
+near ".90": syntax error
+ERROR at 2012-04-25 10:50:06
+near ".90": syntax error
+ERROR at 2012-04-25 10:51:01
+near ".90": syntax error
+Successful cronjob at 2012-04-25 10:51:36
+Successful cronjob at 2012-04-25 10:53:01
+Successful cronjob at 2012-04-25 11:00:02
