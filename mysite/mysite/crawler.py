@@ -20,7 +20,7 @@ def fetch_urls(urlQueue, urlQueueMaySeen, limit, processed):
     to use the main() function as a sort of master process.
     '''
     # Restrict URLs to Caltech domain with this regex
-    matchRE = re.compile("^https?://([a-z0-9]+\.)*express\.com/?")
+    matchRE = re.compile("^https?://([a-z0-9]+\.)*amazon\.com/?")
 
     while processed.value < limit.value:
 
@@ -49,8 +49,8 @@ if __name__ == "__main__":
         urlQueue = Queue() #all unprocessed url
         urlQueueMaySeen = Queue() #all url(might or might not seen)
         
-        seen = {"http://www.express.com/classic-fit-belted-striped-shorts-46091-927/refine/size/36/control/page/2/show/3/index.pro" : True} # Set of URLs we've seen before
-        urlQueue.put("http://www.express.com/classic-fit-belted-striped-shorts-46091-927/refine/size/36/control/page/2/show/3/index.pro")  
+        seen = {"http://www.amazon.com" : True} # Set of URLs we've seen before
+        urlQueue.put("http://www.amazon.com")  
         
         listProcess = []
         for i in range(4): #add five processes

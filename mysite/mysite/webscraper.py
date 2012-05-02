@@ -22,6 +22,7 @@ def amazon(html):
     productName = detailsTag[-2].strip()
     productId = idTag[0]["value"].strip()
     productPrice = detailsTag[-1].strip()
+    productPrice = productPrice[1:]
 
     return productName, productId, productPrice, "amazon"
     
@@ -40,6 +41,7 @@ def bestbuy(html):
     productName = nameTag[0].strip()
     productId = idTag[0].strip()
     productPrice = priceTag[0].strip()
+    productPrice = productPrice[1:]
 
     return productName, productId, productPrice, "bestbuy"
 
@@ -71,6 +73,7 @@ def forever21(html):
     productName = detailsTag[0].strip()
     productId = detailsTag[-1].strip()[-10:]
     productPrice = re.search("\$.*", priceTag[-1].strip()).group()
+    productPrice = productPrice[1:]
     
     return productName, productId, productPrice, "forever21"
 
@@ -88,6 +91,7 @@ def walmart(html):
     productName = detailsTag[0].strip()
     productId = idTag[0]["value"].strip()
     productPrice = detailsTag[1].strip() + detailsTag[2].strip()
+    productPrice = productPrice[1:]
 
     return productName, productId, productPrice, "walmart"
 
@@ -104,6 +108,7 @@ def target(html):
     productName = detailsTag[-1].strip()
     productId = idTag[0]["value"].strip()
     productPrice = detailsTag[0].strip()
+    productPrice = productPrice[1:]
 
     return productName, productId, productPrice, "target"
 
