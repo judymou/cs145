@@ -49,8 +49,8 @@ if __name__ == "__main__":
         urlQueue = Queue() #all unprocessed url
         urlQueueMaySeen = Queue() #all url(might or might not seen)
         
-        seen = {"http://www.amazon.com" : True} # Set of URLs we've seen before
-        urlQueue.put("http://www.amazon.com")  
+        seen = {"http://www.amazon.com/Hamilton-Beach-51101B-Personal-Blender/dp/B0017XHSAE/ref=sr_1_1?ie=UTF8&qid=1335956312&sr=8-1" : True} # Set of URLs we've seen before
+        urlQueue.put("http://www.amazon.com/Hamilton-Beach-51101B-Personal-Blender/dp/B0017XHSAE/ref=sr_1_1?ie=UTF8&qid=1335956312&sr=8-1")  
         
         listProcess = []
         for i in range(4): #add five processes
