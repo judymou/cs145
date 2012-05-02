@@ -54,6 +54,7 @@ def express(html):
     productName = detailsTag[0].strip()
     productId = detailsTag[1].strip()
     productPrice = priceTag[0].findAll(text=True)[-1].strip()
+    productPrice = productPrice[1:]
 
     return productName, productId, productPrice, "express"
 

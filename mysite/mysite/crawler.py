@@ -6,7 +6,7 @@ from fetcher import fetch_links
 from parser import parse_link
 import re
 import sys
-#it might be an error after all my program has terminated: I search up online, it might be a error from python
+
 def fetch_urls(urlQueue, urlQueueMaySeen, limit, processed):
     ''' This function takes in a queue of URLs to fetch and the number of URLs
     to fetch and returns a dictionary representing a histogram of linkcount vs
@@ -44,7 +44,7 @@ def fetch_urls(urlQueue, urlQueueMaySeen, limit, processed):
 
 if __name__ == "__main__":
     try: 
-        limit = Value('i', 10) #max limit of process it can run
+        limit = Value('i', 100) #max limit of process it can run
         processed = Value('i', 0) # Number of URLs processed
         urlQueue = Queue() #all unprocessed url
         urlQueueMaySeen = Queue() #all url(might or might not seen)
