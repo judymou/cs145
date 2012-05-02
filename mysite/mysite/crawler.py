@@ -44,7 +44,7 @@ def fetch_urls(urlQueue, urlQueueMaySeen, limit, processed):
 
 if __name__ == "__main__":
     try: 
-        limit = Value('i', 100) #max limit of process it can run
+        limit = Value('i', 200) #max limit of process it can run
         processed = Value('i', 0) # Number of URLs processed
         urlQueue = Queue() #all unprocessed url
         urlQueueMaySeen = Queue() #all url(might or might not seen)
@@ -53,7 +53,7 @@ if __name__ == "__main__":
         urlQueue.put("http://www.express.com/classic-fit-belted-striped-shorts-46091-927/refine/size/36/control/page/2/show/3/index.pro")  
         
         listProcess = []
-        for i in range(5): #add five processes
+        for i in range(4): #add five processes
             listProcess.append(Process(target= fetch_urls, args = (urlQueue, urlQueueMaySeen, limit, processed)))
     
         for p in listProcess: #start the processes

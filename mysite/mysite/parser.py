@@ -5,16 +5,16 @@ def parse_link(url):
     try:
         conn = ConnectionPoolEngine().getPool().connect()
         productName, productId, productPrice, storeName = parseUrl(url)
+        productPrice = round(float(productPrice), 3)
         query = 'select id, price from products_item where product_id = \'' + str(productId) + "\' and store = \'" + str(storeName) + "\'"
         result = conn.execute(query)
         row = result.fetchone()
         if (row == None):
-            myValues = (productId, storeName, productName, productPrice, url);
-            conn.execute('insert into products_item (product_id, store, name, price, url) values (?, ?, ?, ?, ?)', myValues)
-        elif(productPrice < row['price']):
+            conn.execute('insert into products_item (product_id, store, name, price, url) values ( \'' + str(productId) + '\', \'' + str(storeName) + '\', \'' + str(productName) + '\', ' + str(productPrice) + ', \'' + str(url) + '\')')
+        elif (productPrice < row['price']):
             conn.execute('update products_item set price =' + str(productPrice) + ', price_date = current_timestamp where id = ' + str(row['id']))
             myValues = (row['id'], productPrice)
-            conn.execute('insert into price_history (item_id, price) values (?,?)', myValues)
+            conn.execute('insert into price_history (item_id, price) values (' + str(row['id']) + ', ' + str(productPrice) + ')')
         result.close()
         conn.close()
     except Exception, e:

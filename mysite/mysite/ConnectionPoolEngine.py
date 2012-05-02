@@ -5,7 +5,7 @@ class ConnectionPoolEngine(object):
     def __init__(self):
         if self.engine == None:
             #self.engine = sqlalchemy.create_engine('sqlite:////Users/belovedjudymou/Documents/schoolProject/cs145/mysite/sqlite3db/mydb.db', echo=True)
-            self.engine = sqlalchemy.create_engine('mysql://judymou:onomnom@localhost/onomnomdb', echo=True)
+            self.engine = sqlalchemy.create_engine('mysql://judymou:onomnom@localhost/onomnomdb', pool_size = 5,  echo=True)
     
     def getPool(self):
         return self.engine
