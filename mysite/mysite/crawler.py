@@ -20,7 +20,7 @@ def fetch_urls(urlQueue, urlQueueMaySeen, limit, processed):
     to use the main() function as a sort of master process.
     '''
     # Restrict URLs to Caltech domain with this regex
-    matchRE = re.compile("^https?://([a-z0-9]+\.)*amazon\.com/?")
+    matchRE = re.compile("^https?://([a-z0-9]+\.)*(amazon|express|forever21|bestbuy)\.com/?")
 
     while processed.value < limit.value:
 
@@ -49,11 +49,22 @@ if __name__ == "__main__":
         urlQueue = Queue() #all unprocessed url
         urlQueueMaySeen = Queue() #all url(might or might not seen)
         
-        seen = {"http://www.amazon.com/Hamilton-Beach-51101B-Personal-Blender/dp/B0017XHSAE/ref=sr_1_1?ie=UTF8&qid=1335956312&sr=8-1" : True} # Set of URLs we've seen before
-        urlQueue.put("http://www.amazon.com/Hamilton-Beach-51101B-Personal-Blender/dp/B0017XHSAE/ref=sr_1_1?ie=UTF8&qid=1335956312&sr=8-1")  
+        amazon = "http://www.amazon.com/Hamilton-Beach-51101B-Personal-Blender/dp/B0017XHSAE/ref=sr_1_1?ie=UTF8&qid=1335956312&sr=8-1"
+        express = "http://www.express.com/ikat-print-double-v-wedge-tee-45922-682/control/show/3/index.pro"
+        forever21 = "http://www.forever21.com/Product/Product.aspx?BR=f21&Category=top&ProductID=2000038004&VariantID="
+        bestbuy = "http://www.bestbuy.com/site/Garmin+-+n%26%23252%3Bvi+2455LMT+GPS/3054065.p?id=1218374933088&skuId=3054065&st=Garmin_GPS_offer_20120429&cp=1&lp=1"
+        seen = {}
+        seen[amazon] = True
+        seen[express] = True
+        seen[forever21] = True
+        seen[bestbuy] = True
+        urlQueue.put(amazon)  
+        urlQueue.put(express)
+        urlQueue.put(forever21)
+        urlQueue.put(bestbuy)
         
         listProcess = []
-        for i in range(4): #add five processes
+        for i in range(6): #add five processes
             listProcess.append(Process(target= fetch_urls, args = (urlQueue, urlQueueMaySeen, limit, processed)))
     
         for p in listProcess: #start the processes
