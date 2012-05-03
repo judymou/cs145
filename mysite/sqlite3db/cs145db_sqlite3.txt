@@ -1,0 +1,27 @@
+drop table products_item;
+drop table products_tracklist;
+drop table price_history;
+
+CREATE TABLE products_item (
+    id integer NOT NULL PRIMARY KEY,
+    product_id varchar(20) NOT NULL,
+    store varchar(10) NOT NULL,
+    name varchar(30) NOT NULL,
+    price decimal NOT NULL,
+    url varchar(200) NOT NULL,
+    price_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (product_id, store)
+);
+
+CREATE TABLE products_tracklist (
+    id integer NOT NULL PRIMARY KEY,
+    user_id integer NOT NULL REFERENCES auth_user (id),
+    item_id integer NOT NULL REFERENCES products_item (id)
+);
+
+create table price_history (
+    id integer not null primary key,
+    item_id integer not null references products_item (id),
+    price decimal not null,
+    price_date timestamp default current_timestamp
+);
