@@ -1,49 +1,46 @@
 drop table products_item;
 drop table products_tracklist;
 drop table price_history;
+drop table auth_user;
 
-CREATE TABLE "products_item" (
-    "id" integer NOT NULL PRIMARY KEY,
-    "product_id" varchar(20) NOT NULL,
-    "store" varchar(10) NOT NULL,
-    "name" varchar(30) NOT NULL,
-    "price" decimal NOT NULL,
-    "url" varchar(200) NOT NULL,
-    "price_date" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE products_item (
+    id integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id varchar(20) NOT NULL,
+    store varchar(10) NOT NULL,
+    name varchar(50) NOT NULL,
+    price decimal(10, 2) NOT NULL,
+    url varchar(200) NOT NULL,
+    price_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE (product_id, store),
     index product_identifier (product_id, store)
 );
 
-CREATE TABLE "products_tracklist" (
-    "id" integer NOT NULL PRIMARY KEY,
-    "user_id" integer NOT NULL REFERENCES "auth_user" ("id"),
-    "item_id" integer NOT NULL REFERENCES "products_item" ("id"),
+CREATE TABLE products_tracklist (
+    id integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id integer NOT NULL REFERENCES auth_user (id),
+    item_id integer NOT NULL REFERENCES products_item (id),
     index user_products_list (user_id)
 );
 
 create table price_history (
-    id integer not null primary key,
+    id integer not null AUTO_INCREMENT primary key,
     item_id integer not null references products_item (id),
-    price decimal not null,
+    price decimal(10, 2) not null,
     price_date timestamp default current_timestamp
 );
 
-commit;
-
-drop table auth_user;
-
-CREATE TABLE "auth_user" (
-    "id" integer NOT NULL PRIMARY KEY,
-    "username" varchar(30) NOT NULL UNIQUE,
-    "first_name" varchar(30) NOT NULL,
-    "last_name" varchar(30) NOT NULL,
-    "email" varchar(75) NOT NULL,
-    "password" varchar(128) NOT NULL,
-    "is_staff" bool NOT NULL,
-    "is_active" bool NOT NULL,
-    "is_superuser" bool NOT NULL,
-    "last_login" datetime NOT NULL,
-    "date_joined" datetime NOT NULL
+CREATE TABLE auth_user (
+    id integer NOT NULL PRIMARY KEY,
+    username varchar(30) NOT NULL UNIQUE,
+    first_name varchar(30) NOT NULL,
+    last_name varchar(30) NOT NULL,
+    email varchar(75) NOT NULL,
+    password varchar(128) NOT NULL,
+    is_staff bool NOT NULL,
+    is_active bool NOT NULL,
+    is_superuser bool NOT NULL,
+    last_login datetime NOT NULL,
+    date_joined datetime NOT NULL
 );
 
 
@@ -82,4 +79,4 @@ Backend script updating the price:
 
 Display the user account page: 
  pseudocode
- * select product_id, store, price, price_date, url from (select item_id from products_tracklist where user_id = blah) join products_item on (item_id);
+ * select product_id, store, price, price_date, url from (select item_id from products_tracklist where user_id = blah) i join products_item on (i.item_id = products_item.id);
