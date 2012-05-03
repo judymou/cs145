@@ -17,7 +17,7 @@ if __name__ == "__main__":
         urls = myDB.selectAllURLs()
         for url in urls:
             productName, productId, productPrice, storeName = parseUrl(url[0])
-            myDB.update(productId, storeName, productPrice[1:])
+            myDB.update(productId, storeName, productPrice)
     except IOError:
         print "Error: Missing log file...creating new log file"
         log = open(pathname, "w")

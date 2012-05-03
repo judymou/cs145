@@ -29,7 +29,7 @@ class ItemForm(forms.Form):
            
             cleaned_data["product_name"] = productName
             cleaned_data["product_id"] = productId
-            cleaned_data["product_price"] = productPrice[1:]
+            cleaned_data["product_price"] = productPrice
             cleaned_data["store_name"] = storeName
             cleaned_data["price_date"] = date.today()
 
@@ -40,8 +40,7 @@ class ItemForm(forms.Form):
         except Exception, e:
             raise forms.ValidationError("Sorry, we couldn't find your item")
 
-         # Check if item has already been added to database
-        if Item.objects.filter(product_id = productId): 
-            raise forms.ValidationError("You are already watching this item!")
-
+        #if Item.objects.filter(product_id = productId, store = storeName): 
+        #    raise forms.ValidationError("You are already watching this item!")
+       
         return cleaned_data

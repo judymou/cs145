@@ -14,7 +14,7 @@ def parse_link(url):
         elif (productPrice < row['price']):
             conn.execute('update products_item set price =' + str(productPrice) + ', price_date = current_timestamp where id = ' + str(row['id']))
             myValues = (row['id'], productPrice)
-            conn.execute('insert into price_history (item_id, price) values (' + str(row['id']) + ', ' + str(productPrice) + ')')
+            conn.execute('insert into products_pricehistory (item_id, price) values (' + str(row['id']) + ', ' + str(productPrice) + ')')
         result.close()
         conn.close()
     except Exception, e:

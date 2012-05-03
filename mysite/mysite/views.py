@@ -7,6 +7,7 @@ from products.models import *
 from mysite.forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from decimal import *
 
 def hello(request):
     return HttpResponse("Hello world")
@@ -20,15 +21,50 @@ def enter_product(request):
         form = ItemForm(request.POST)
         if form.is_valid():
             item = form.cleaned_data
+            currentItemId = -1
             
-            # save product info in products_item table
-            entry = Item.objects.create(product_id=item['product_id'],
+            # Check if item has already been added to database
+            result = Item.objects.filter(product_id = item['product_id'], 
+                                         store = item['store_name'])
+            if (result.count() == 0):
+                # insert product info in products_item table
+                print "insert new item to products_item"
+                entry = Item.objects.create(product_id=item['product_id'],
                                         store=item['store_name'],
                                         name=item['product_name'],
                                         price=item['product_price'],
                                         url=item['item_url'],
                                         price_date=item['price_date'])
 
+                # query the item id
+                currentItem = Item.objects.filter(product_id=item['product_id'],
+                                                  store=item['store_name'])
+                currentItemId = currentItem.values()[0]['id']
+                print "insert the new price to price history table"
+                PriceHistory.objects.create(item_id = currentItemId, 
+                                            price = item['product_price'])
+                
+            else :
+                oldItemInfo = result.values()[0]
+                currentItemId = oldItemInfo['id']
+                if (item['product_price'] < oldItemInfo['price']):
+                    # if product exists already and price has dropped, update
+                    # item table and insert into price history.
+                    print "update old item in products_item"
+                    Item.objects.filter(id = currentItemId).update(
+                        price=item['product_price'], 
+                        price_date=item['price_date'])
+                    print "insert new entry to price history"
+                    PriceHistory.objects.create(item_id = currentItemId, 
+                                                price = item['product_price'])
+            
+            # Add product to tracklist if its not tracked
+            tracklist = TrackList.objects.filter(user_id=request.user.id, 
+                                                 item_id = currentItemId)
+            if (tracklist.count() == 0):
+                print "add (user, item) to tracklist"
+                TrackList.objects.create(user_id= request.user.id, 
+                                         item_id= currentItemId)
             return HttpResponseRedirect('/time/') 
     else:
         form = ItemForm(initial={'item_url':'Enter the url here'})

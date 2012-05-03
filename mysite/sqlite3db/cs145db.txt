@@ -1,6 +1,6 @@
 drop table products_item;
 drop table products_tracklist;
-drop table price_history;
+drop table products_pricehistory;
 drop table auth_user;
 
 CREATE TABLE products_item (
@@ -22,7 +22,7 @@ CREATE TABLE products_tracklist (
     index user_products_list (user_id)
 );
 
-create table price_history (
+create table products_pricehistory (
     id integer not null AUTO_INCREMENT primary key,
     item_id integer not null references products_item (id),
     price decimal(10, 2) not null,
@@ -59,6 +59,7 @@ When user insert a URL to keep track:
  * select id, price from products_item where product_id  = blah and store = blah;
  * if (price == null)
  *    insert into products_item values (info);
+      insert into price_history the new price
  * else if (price != new_price)
  *    update products_item set price = new_price, price_date = current timestamp where id = id;
  *    insert into price_history (item_id, price) values (id, new_price);

@@ -1,6 +1,6 @@
 drop table products_item;
 drop table products_tracklist;
-drop table price_history;
+drop table products_pricehistory;
 
 CREATE TABLE products_item (
     id integer NOT NULL PRIMARY KEY,
@@ -19,7 +19,7 @@ CREATE TABLE products_tracklist (
     item_id integer NOT NULL REFERENCES products_item (id)
 );
 
-create table price_history (
+create table products_pricehistory (
     id integer not null primary key,
     item_id integer not null references products_item (id),
     price decimal not null,
