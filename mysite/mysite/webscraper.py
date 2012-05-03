@@ -109,8 +109,12 @@ def target(html):
 def parseUrl(givenUrl):
     SUPPORTED_WEBSITES = {"amazon":amazon, "bestbuy":bestbuy, "express":express, 
                           "forever21":forever21, "walmart":walmart,"target":target}
+
+    # Keep url fonts consistent by forcing lowercase and striping any white spaces
     url = str(givenUrl).lower().strip()
 
+    # Check if url starts with http://
+    # Sometimes users forget to include http and urllib2 cannot open without that prefix
     if url.startswith("http://"):
         page = urllib2.urlopen(url)
     else:
@@ -120,6 +124,7 @@ def parseUrl(givenUrl):
     html = page.read()
     page.close()
 
+    # Grab the domain name
     hostname = urlparse(url).hostname.split(".")[-2]
 
     # Call correct function based on hostname
