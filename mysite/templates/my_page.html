@@ -19,6 +19,22 @@
 <body>
 
 <div id="container">
+  <h3>Enter the url of the product that you wish to be tracked</h3>
+
+  <div id="url_box">    
+    {% if form.errors %}
+        <p style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+    {% endif %}
+
+    <form action="" method="post">{% csrf_token%}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Submit">
+    </form>
+    </div>
 
 <table id="table">
     <tr>
@@ -54,7 +70,18 @@
         </td>
     </tr>
 </table>
-
+<table>
+<tr><th>Picture</th><th>Product Name</th><th>Store</th><th>Product Price</th><th>Last Price Change</th>
+    {% for item in query_results %}
+    <tr>
+      <td>Insert picture here</td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.store }}</td>
+      <td>{{ item.price }}</td>
+      <td>{{ item.price_date }}</td>
+    </tr>
+    {% endfor %}
+</table>
 </div>
 
 </body>

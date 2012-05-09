@@ -13,7 +13,6 @@ urlpatterns = patterns('',
     ('^accounts/profile/$', views.mypage),
     ('^users/.*$', views.mypage),
     ('^accounts/', include('registration.backends.simple.urls')),
-    ('^product/$', views.enter_product),
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^mysite/', include('mysite.foo.urls')),

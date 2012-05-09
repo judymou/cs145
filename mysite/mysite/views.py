@@ -16,7 +16,8 @@ def current_datetime(request):
     now = datetime.datetime.now()
     return render_to_response('current_datetime.html', {'current_date': now})
 	
-def enter_product(request):
+@login_required
+def mypage(request):
     if request.method == 'POST':
         form = ItemForm(request.POST)
         if form.is_valid():
@@ -68,7 +69,12 @@ def enter_product(request):
             return HttpResponseRedirect('/time/') 
     else:
         form = ItemForm(initial={'item_url':'Enter the url here'})
-    return render_to_response('enter_product.html', {'form': form}, context_instance=RequestContext(request)) 
+        userItems = TrackList.objects.filter(user_id=request.user.id)
+
+        query_results = []
+        for result in userItems:
+            query_results.append(result.item)
+    return render_to_response('my_page.html', {'form': form, 'query_results': query_results}, context_instance=RequestContext(request)) 
 
 def product(request):
     error = False
@@ -109,10 +115,5 @@ def lost(request):
     else:
         form = LoginForm(initial= {'email':'why_why@yahoo.com'})
     return render_to_response('lost.html', {'form': form}, context_instance=RequestContext(request))
-
-@login_required
-def mypage(request):
-    print request.user.id
-    return render_to_response('my_page.html')
 
 
