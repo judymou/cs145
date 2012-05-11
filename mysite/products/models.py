@@ -8,6 +8,7 @@ class Item(models.Model):
     name = models.CharField(max_length=30)
     price = models.DecimalField(max_digits = 10, decimal_places=2)
     url = models.URLField()
+    img_url = models.URLField()
     price_date = models.DateField()
 
 class TrackList(models.Model):

@@ -72,12 +72,12 @@
 </table>
 <table>
 <tr><th>Picture</th><th>Product Name</th><th>Store</th><th>Product Price</th><th>Last Price Change</th>
-    {% for item in query_results %}
+    {% for item, price in query_results %}
     <tr>
-      <td>Insert picture here</td>
+      <td><a href="http://www.google.com"><img src={{ item.img_url }}></a></td>
       <td>{{ item.name }}</td>
       <td>{{ item.store }}</td>
-      <td>{{ item.price }}</td>
+      <td>{{ price }}</td>
       <td>{{ item.price_date }}</td>
     </tr>
     {% endfor %}

@@ -25,14 +25,15 @@ class ItemForm(forms.Form):
 
         try:
             # If url is valid, add relevant info to cleaned_data
-            productName, productId, productPrice, storeName = parseUrl(item_url)
+            itemDetails = parseUrl(item_url)
             # convert the price to a double
-            productPrice = round(float(productPrice), 3)
+            productPrice = float(itemDetails[2])
             
-            cleaned_data["product_name"] = productName
-            cleaned_data["product_id"] = productId
+            cleaned_data["product_name"] = itemDetails[0]
+            cleaned_data["product_id"] = itemDetails[1]
             cleaned_data["product_price"] = str(productPrice)
-            cleaned_data["store_name"] = storeName
+            cleaned_data["img_url"] = itemDetails[3]
+            cleaned_data["store_name"] = itemDetails[4]
             cleaned_data["price_date"] = date.today()
 
         except urllib2.URLError:

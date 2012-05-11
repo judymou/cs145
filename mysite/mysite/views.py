@@ -18,6 +18,10 @@ def current_datetime(request):
 	
 @login_required
 def mypage(request):
+    # Default form
+    form = ItemForm(initial={'item_url':'Enter the url here'})
+
+    # If user enters a url, attempt to track item
     if request.method == 'POST':
         form = ItemForm(request.POST)
         if form.is_valid():
@@ -35,6 +39,7 @@ def mypage(request):
                                         name=item['product_name'],
                                         price=item['product_price'],
                                         url=item['item_url'],
+                                        img_url=item['img_url'],
                                         price_date=item['price_date'])
 
                 # query the item id
@@ -66,14 +71,17 @@ def mypage(request):
                 print "add (user, item) to tracklist"
                 TrackList.objects.create(user_id= request.user.id, 
                                          item_id= currentItemId)
-            return HttpResponseRedirect('/time/') 
-    else:
-        form = ItemForm(initial={'item_url':'Enter the url here'})
-        userItems = TrackList.objects.filter(user_id=request.user.id)
+            return HttpResponseRedirect('/mypage/') 
 
-        query_results = []
-        for result in userItems:
-            query_results.append(result.item)
+    # Build table containing all watched items
+    userItems = TrackList.objects.filter(user_id=request.user.id)
+
+    query_results = []
+    for result in userItems:
+        # Convert price to string to be displayed in my_page.html
+        price = "$%.02f" % result.item.price
+        query_results.append([result.item, price])
+
     return render_to_response('my_page.html', {'form': form, 'query_results': query_results}, context_instance=RequestContext(request)) 
 
 def product(request):

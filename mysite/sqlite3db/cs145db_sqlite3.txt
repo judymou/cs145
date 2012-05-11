@@ -9,6 +9,7 @@ CREATE TABLE products_item (
     name varchar(30) NOT NULL,
     price decimal NOT NULL,
     url varchar(200) NOT NULL,
+    img_url varchar(200) NOT NULL,
     price_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE (product_id, store)
 );
