@@ -12,9 +12,10 @@ height:100%;
 body {
  width:auto;
  height:auto;
- padding: 50px;
+ padding:20px;
  border-top: solid 1px #fff;
- background: #fff url(images/pattern1.png) 0 0 repeat-x;
+ background-image:url('images/onomnom_city.png');
+ background-position:center;
  font: 14px/normal Tahoma, Arial, Helvetica, sans-serif;
 }
 
@@ -25,9 +26,9 @@ h1,h2,h3 {
 }
 
 h1 {
+ height:90px;
  padding:5px;
- height:50px;
- border-bottom: solid 1px #d9d9d9;
+ border-bottom: solid 1px #000;
  font-weight: normal;
  font-size: 300%;
  text-indent: 5px;
@@ -40,6 +41,7 @@ height:500px;
 float:left;
 margin:0;
 padding:5px;
+color:#fff;
 }
 
 ul.classic {
@@ -48,12 +50,17 @@ ul.classic {
  padding-left: 2em;
 }
 
-p { margin-bottom: 1em; }
+#content { 
+width:500px;
+height:500px;
+margin:3px;
+background-image:url('images/items.png');
+background-position:center;
+}
 
 #footer {
 width:100%;
-height:30px;
 margin:0;
-padding:5px;
+padding:0;
 text-align:center;
 }
