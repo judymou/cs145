@@ -1,27 +1,140 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <title>Welcome</title>
-<link href="font.css" media="screen" rel="stylesheet" type="text/css" />
-<link href="welcome.css" media="screen" rel="stylesheet" type="text/css" />
+<title>Onomnom</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Tom@Lwis (http://www.lwis.net/free-css-drop-down-menu/)" />
+<meta name="keywords" content=" css, dropdowns, dropdown menu, drop-down, menu, navigation, nav, horizontal, vertical left-to-right, vertical right-to-left, horizontal linear, horizontal upwards, cross browser, internet explorer, ie, firefox, safari, opera, browser, lwis" />
+<meta name="description" content="Clean, standards-friendly, modular framework for dropdown menus" />
+<link rel="shortcut icon" type="image/x-icon" href="css/dropdown/themes/vimeo.com/images/favicon.ico" />
+<link href="/media/welcome_style.css" media="screen" rel="stylesheet" type="text/css" />
+
+<!-- Beginning of compulsory code below -->
+
+<link href="/media/welcome_menu.css" media="screen" rel="stylesheet" type="text/css" />
+
+
+<!--[if lte IE 7]>
+<script type="text/javascript" src="js/jquery/jquery.js"></script>
+<script type="text/javascript" src="js/jquery/jquery.dropdown.js"></script>
+<![endif]-->
+
+<!-- / END -->
+
 </head>
 <body>
 
-    <h1>Please enter your name, url of the product, and your email.</h1>
+<table id="table">
+    <tr>
+        <td>
+            <div id="logo">
+            <img src="/media/images/logo_a.png">
+            </div>
+        </td>
+        <td>
+            <div id="menu">
+            <!-- Beginning of compulsory code below --> 
+            <ul id="nav" class="dropdown dropdown-horizontal">
+                <li class="first"><a href="./">Home</a></li>
+                <li class="dir">About Us
+                    <ul>
+                        <li class="first"><a href="./">History</a></li>
+                        <li><a href="./">Our Vision</a></li>
+                        <li><a href="./" class="dir">The Team</a>
+                            <ul>
+                                <li class="first"><a href="/media/images/judy.jpg">Judy</a></li>
+                                <li><a href="/media/images/mama.jpg">Tuling</a></li>
+                                <li><a href="/media/images/lucia.jpg">Lucia</a></li>
+                                <li class="last"><a href="/media/images/tma.jpg">Tom</a></li>
+                            </ul>
+                        </li>
+                        <li class="last"><a href="./">FAQs</a></li>
+                    </ul>
+                </li>
+                <li class="dir">Services
+                    <ul>
+                        <li class="first"><a href="./">Product Development</a></li>
+                        <li><a href="./">Shop Online</a></li>
+                        <li class="last"><a href="./">Support</a></li>
+                    </ul>
+                </li>
+                <li class="dir">Products
+                    <ul>
+                        <li class="first"><a href="./" class="dir">New</a>
+                            <ul>
+                                <li class="first"><a href="./">Corporate Use</a></li>
+                                <li class="last"><a href="./">Private Use</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="./" class="dir">Used</a>
+                            <ul>
+                                <li class="first"><a href="./">Corporate Use</a></li>
+                                <li class="last"><a href="./">Private Use</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="./">Featured</a></li>
+                        <li><a href="./">Top Rated</a></li>
+                        <li class="last"><a href="./">Prices</a></li>
+                    </ul>
+                </li>
+                <li><a href="./">Gallery</a></li>
+                <li><a href="./" class="dir">Contact Us</a>
+                    <ul>
+                        <li class="first"><a href="./">Enquiry Form</a></li>
+                        <li><a href="./" class="dir">Map &amp; Driving Directions</a>
+                            <ul>
+                                <li class="first"><a href="./">Map</a></li>
+                                <li class="last"><a href="./">Driving Directions</a></li>
+                            </ul>
+                        </li>
+                        <li class="last"><a href="./">Your Feedback</a></li>
+                    </ul>
+                </li>
+                <li class="dir">
+                    <form method="post" action="">
+                        <fieldset>
+                            <label for="search">Search:</label>
+                            <input type="text" id="search" class="text" value="Search!" onfocus="if (this.value == 'Search!') this.value = '';" onblur="if (this.value == '') this.value = 'Search!';" maxlength="255" />
+                            <input type="image" src="/media/images/btn_search.png" class="button" />
+                        </fieldset>
+                    </form>
+                    <ul>
+                        <li class="first"><a href="./">Search result #1</a></li>
+                        <li><a href="./">Search result #2</a></li>
+                        <li><a href="./">Search result #3</a></li>
+                        <li><a href="./">Search result #4</a></li>
+                        <li class="last"><a href="./">Search result #5</a></li>
+                    </ul>
+                </li>
+                <li class="last">
+                    <a href="./">Register|Sign In</a>
+                </li>
+            </ul>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" colspan="2">
+            <p> yayaya </p>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" colspan="2">
+            <div id="content">
+                <p>content goes here<p>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" colspan="2">
+            <div id="footer">
+                Copyright © 2012 Onomnom.com
+            </div>
+        </td>
+    </tr>
+</table>
 
-    <div id="login_box">    
-    {% if form.errors %}
-        <p style="color: red;">
-            Please correct the error{{ form.errors|pluralize }} below.
-        </p>
-    {% endif %}
+<!-- / END -->
 
-    <form action="" method="post">{% csrf_token%}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" value="Submit">
-        <p> Already a member? <a link href="">Sign in</a></p>
-    </form>
-    </div>
 </body>
 </html>

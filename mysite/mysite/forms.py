@@ -25,12 +25,15 @@ class ItemForm(forms.Form):
 
         try:
             # If url is valid, add relevant info to cleaned_data
-            productName, productId, productPrice, storeName = parseUrl(item_url)
-           
-            cleaned_data["product_name"] = productName
-            cleaned_data["product_id"] = productId
-            cleaned_data["product_price"] = productPrice[1:]
-            cleaned_data["store_name"] = storeName
+            itemDetails = parseUrl(item_url)
+            # convert the price to a double
+            productPrice = float(itemDetails[2])
+            
+            cleaned_data["product_name"] = itemDetails[0]
+            cleaned_data["product_id"] = itemDetails[1]
+            cleaned_data["product_price"] = str(productPrice)
+            cleaned_data["img_url"] = itemDetails[3]
+            cleaned_data["store_name"] = itemDetails[4]
             cleaned_data["price_date"] = date.today()
 
         except urllib2.URLError:
@@ -40,8 +43,7 @@ class ItemForm(forms.Form):
         except Exception, e:
             raise forms.ValidationError("Sorry, we couldn't find your item")
 
-         # Check if item has already been added to database
-        if Item.objects.filter(product_id = productId): 
-            raise forms.ValidationError("You are already watching this item!")
-
+        #if Item.objects.filter(product_id = productId, store = storeName): 
+        #    raise forms.ValidationError("You are already watching this item!")
+       
         return cleaned_data
