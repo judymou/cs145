@@ -5,11 +5,12 @@ drop table auth_user;
 
 CREATE TABLE products_item (
     id integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    product_id varchar(20) NOT NULL,
+    product_id varchar(30) NOT NULL,
     store varchar(10) NOT NULL,
-    name varchar(50) NOT NULL,
+    name varchar(70) NOT NULL,
     price decimal(10, 2) NOT NULL,
     url varchar(200) NOT NULL,
+    img_url varchar(200) NOT NULL,
     price_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE (product_id, store),
     index product_identifier (product_id, store)
@@ -63,7 +64,7 @@ When user insert a URL to keep track:
  * else if (price != new_price)
  *    update products_item set price = new_price, price_date = current timestamp where id = id;
  *    insert into price_history (item_id, price) values (id, new_price);
- * insert into products_tracklist
+ * insert into products_tracklist if it does not exist yet.
 
 Backend script updating the price:
  - if product_id and store is not there: insert into products_item
