@@ -4,13 +4,20 @@ from ConnectionPoolEngine import ConnectionPoolEngine
 def parse_link(url):
     try:
         conn = ConnectionPoolEngine().getPool().connect()
-        productName, productId, productPrice, storeName = parseUrl(url)
+        
+        itemDetails = parseUrl(url)
+        productName= itemDetails[0]
+        productId= itemDetails[1]
+        productPrice = str(itemDetails[2])
+        img_url = itemDetails[3]
+        storeName = itemDetails[4]
         productPrice = round(float(productPrice), 3)
+        
         query = 'select id, price from products_item where product_id = \'' + str(productId) + "\' and store = \'" + str(storeName) + "\'"
         result = conn.execute(query)
         row = result.fetchone()
         if (row == None):
-            conn.execute('insert into products_item (product_id, store, name, price, url) values ( \'' + str(productId) + '\', \'' + str(storeName) + '\', \'' + str(productName) + '\', ' + str(productPrice) + ', \'' + str(url) + '\')')
+            conn.execute('insert into products_item (product_id, store, name, price, url, img_url) values ( \'' + str(productId) + '\', \'' + str(storeName) + '\', \'' + str(productName) + '\', ' + str(productPrice) + ', \'' + str(url) + '\', \'' + str(img_url) + '\')')
         elif (productPrice < row['price']):
             conn.execute('update products_item set price =' + str(productPrice) + ', price_date = current_timestamp where id = ' + str(row['id']))
             myValues = (row['id'], productPrice)
