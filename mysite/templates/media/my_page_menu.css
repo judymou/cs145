@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+/** 
+ * Default CSS Drop-Down Menu Theme
+ *
+ * @file		default.css
+ * @name		Default
+ * @version		0.1.1
+ * @type		transitional
+ * @browsers	Windows: IE5+, Opera7+, Firefox1+
+ *				Mac OS: Safari2+, Firefox2+
+ *
+ * @link		http://www.lwis.net/
+ * @copyright	2008 Live Web Institute
+ *
+ * Module Classes: *.dir {} *.on {} *.open {} li.hover {} li.first {} li.last {}
+ * Expected directory tag - li
+ *
+ */
+
+
+/*-------------------------------------------------/
+ * @section		Base Drop-Down Styling
+ * @structure	ul (unordered list)
+ *				ul li (list item)
+ *				ul li a (links)
+ *				/*\.class|(li|a):hover/
+ * @level sep	ul
+ */
+
+
+ul.dropdown {
+ padding: 5px;
+ font-weight: none;
+ width:150px;
+ color: #fff;
+}
+
+	ul.dropdown li {
+	 padding: 5px;
+     list-style:none;
+	 background-color: #00AE42; /*--list blocks color--*/
+	 color: #fff; /*--color of list items with sub list and bullets--*/
+	}
+    
+    ul.dropdown li.first {
+     -moz-border-radius:25px; /* Firefox 3.6 and earlier */
+     border-top-right-radius:25px;
+     border-top-left-radius:25px;
+    }
+    
+    ul.dropdown li.last {
+     -moz-border-radius:25px; /* Firefox 3.6 and earlier */
+     border-bottom-right-radius:25px;
+     border-bottom-left-radius:25px;
+    }
+    
+    ul.dropdown li.hover,
+    ul.dropdown li:hover {
+     
+     color: #b0d730;
+    }
+    
+    ul.dropdown li a {
+    }
+
+    ul.dropdown li a:active {
+    }    
+    
+    ul.dropdown a {
+    display: block;
+    padding: 7px 10px;
+    }
+
+	ul.dropdown a:link,
+	ul.dropdown a:visited	{ color: #000; text-decoration: none; }
+	ul.dropdown a:hover { color: #b0d730; } /*-- color of words when hovered --*/
+	ul.dropdown a:active { color: #FFA500; } /*-- color of words when clicked --*/

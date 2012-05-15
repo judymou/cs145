@@ -4,7 +4,7 @@
 <link href="font.css" media="screen" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <h1 align=center>Sign In to Onomnom</h1>
+    <h1 align=center><img src="media/images/signin.png"</h1>
 
     {% if form.errors %}
         <p style="color: red;">
@@ -16,13 +16,13 @@
         <table cellpadding='2' cellspacing='0' border='0' align=center>
         <tr><td bgcolor="F8F8F8">
             <table cellpadding='0' cellspacing='0' border='0' width='100%'>
-            <tr><td bgcolor="#FFA500" style="padding:2;padding-bottom:4">
+            <tr><td bgcolor="#00AE42" style="padding:2;padding-bottom:4">
             <b>Enter your email address and password</b>
             </td></tr>
             </table>
             <table>
                 {{ form.as_table }}
-            <tr><td colspan=2>Lost your username or password? Find it <a href="http://www.authpro.com/auth/deluxe/?action=lost">here</a>!</td></tr>
+            <tr><td colspan=2>Lost your username or password? Find it <a href="C:/Users/Lucia/Documents/cs145new/mysite/templates/lost.html">here</a>!</td></tr>
             <tr><td colspan=2>Not member yet? Click <a href="http://www.authpro.com/auth/deluxe/?action=reg">here</a> to register.</td></tr>
             </table>
             <input type="submit" value="Submit">

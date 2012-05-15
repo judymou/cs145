@@ -7,12 +7,12 @@
 <meta name="keywords" content=" css, dropdowns, dropdown menu, drop-down, menu, navigation, nav, horizontal, vertical left-to-right, vertical right-to-left, horizontal linear, horizontal upwards, cross browser, internet explorer, ie, firefox, safari, opera, browser, lwis" />
 <meta name="description" content="Clean, standards-friendly, modular framework for dropdown menus" />
 <link rel="shortcut icon" type="image/x-icon" href="css/dropdown/themes/vimeo.com/images/favicon.ico" />
-<link href="/media/welcome_style.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="helper.css" media="screen" rel="stylesheet" type="text/css" />
 
 <!-- Beginning of compulsory code below -->
 
-<link href="/media/welcome_menu.css" media="screen" rel="stylesheet" type="text/css" />
-
+<link href="dropdown.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="default.advanced.css" media="screen" rel="stylesheet" type="text/css" />
 
 <!--[if lte IE 7]>
 <script type="text/javascript" src="js/jquery/jquery.js"></script>
@@ -24,16 +24,19 @@
 </head>
 <body>
 
-<table id="table">
+<table id="table" align="center">
     <tr>
-        <td>
+        <td align="center">
             <div id="logo">
-            <img src="/media/images/logo_a.png">
+            <img src="C:\Users\Lucia\Documents\cs145new\mysite\templates\images\logo_a.png">
             </div>
         </td>
-        <td>
+    </tr>
+    <tr>
+        <td align="center">
             <div id="menu">
-            <!-- Beginning of compulsory code below --> 
+            <!-- Beginning of compulsory code below -->
+
             <ul id="nav" class="dropdown dropdown-horizontal">
                 <li class="first"><a href="./">Home</a></li>
                 <li class="dir">About Us
@@ -42,20 +45,23 @@
                         <li><a href="./">Our Vision</a></li>
                         <li><a href="./" class="dir">The Team</a>
                             <ul>
-                                <li class="first"><a href="/media/images/judy.jpg">Judy</a></li>
-                                <li><a href="/media/images/mama.jpg">Tuling</a></li>
-                                <li><a href="/media/images/lucia.jpg">Lucia</a></li>
-                                <li class="last"><a href="/media/images/tma.jpg">Tom</a></li>
+                                <li class="first"><a href="C:\Users\Lucia\Documents\cs145new\mysite\templates\images\judy.jpg">Judy</a></li>
+                                <li><a href="C:\Users\Lucia\Documents\cs145new\mysite\templates\images\mama.jpg">Tuling</a></li>
+                                <li><a href="C:\Users\Lucia\Documents\cs145new\mysite\templates\images\lucia.jpg">Lucia</a></li>
+                                <li class="last"><a href="C:\Users\Lucia\Documents\cs145new\mysite\templates\images\tma.jpg">Tom</a></li>
                             </ul>
                         </li>
+                        <li><a href="./">Press</a></li>
                         <li class="last"><a href="./">FAQs</a></li>
                     </ul>
                 </li>
                 <li class="dir">Services
                     <ul>
                         <li class="first"><a href="./">Product Development</a></li>
+                        <li><a href="./">Delivery</a></li>
                         <li><a href="./">Shop Online</a></li>
-                        <li class="last"><a href="./">Support</a></li>
+                        <li><a href="./">Support</a></li>
+                        <li class="last"><a href="./">Training &amp; Consulting</a></li>
                     </ul>
                 </li>
                 <li class="dir">Products
@@ -95,7 +101,7 @@
                         <fieldset>
                             <label for="search">Search:</label>
                             <input type="text" id="search" class="text" value="Search!" onfocus="if (this.value == 'Search!') this.value = '';" onblur="if (this.value == '') this.value = 'Search!';" maxlength="255" />
-                            <input type="image" src="/media/images/btn_search.png" class="button" />
+                            <input type="image" src="btn_search.png" class="button" />
                         </fieldset>
                     </form>
                     <ul>
@@ -107,26 +113,22 @@
                     </ul>
                 </li>
                 <li class="last">
-                    <a href="./">Register|Sign In</a>
+                    <a href="file:///C:/Users/Lucia/Documents/cs145new/mysite/templates/login.html">Register|Sign In</a>
                 </li>
             </ul>
             </div>
         </td>
     </tr>
     <tr>
-        <td align="center" colspan="2">
-            <p> yayaya </p>
-        </td>
-    </tr>
-    <tr>
-        <td align="center" colspan="2">
+        <td align="center">
             <div id="content">
                 <p>content goes here<p>
+                <img src="C:\Users\Lucia\Documents\cs145new\mysite\templates\images\sale.jpg">
             </div>
         </td>
     </tr>
     <tr>
-        <td align="center" colspan="2">
+        <td align="center">
             <div id="footer">
                 Copyright © 2012 Onomnom.com
             </div>
