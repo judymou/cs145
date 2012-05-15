@@ -8,7 +8,7 @@ def parse_link(url):
         itemDetails = parseUrl(url)
         productName= itemDetails[0]
         productId= itemDetails[1]
-        productPrice = str(productPrice)
+        productPrice = str(itemDetails[2])
         img_url = itemDetails[3]
         storeName = itemDetails[4]
         productPrice = round(float(productPrice), 3)
