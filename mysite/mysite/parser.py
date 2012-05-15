@@ -5,7 +5,7 @@ def parse_link(url):
     try:
         conn = ConnectionPoolEngine().getPool().connect()
         
-        itemDetails = parseUrl(item_url)
+        itemDetails = parseUrl(url)
         productName= itemDetails[0]
         productId= itemDetails[1]
         productPrice = str(productPrice)
