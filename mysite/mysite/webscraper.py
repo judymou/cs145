@@ -24,7 +24,7 @@ def amazon(html):
     productPrice = detailsTag[-1].strip()
     productPrice = productPrice[1:]
 
-    parseImg = SoupStrainer("img", {"alt":re.compile(productName)})
+    parseImg = SoupStrainer("img", {"alt":re.compile(productName.split()[0])})
     soupImg = BeautifulSoup(html, parseImg)
     imgTag = soupImg.findAll(limit=1)
     productImg = imgTag[0]["src"].strip()
@@ -108,7 +108,7 @@ def walmart(html):
     productPrice = detailsTag[1].strip() + detailsTag[2].strip()
     productPrice = productPrice[1:]
 
-    parseImg = SoupStrainer("img", {"alt":re.compile(productName)})
+    parseImg = SoupStrainer("img", {"alt":re.compile(productName.split()[0])})
     soupImg = BeautifulSoup(html, parseImg)
     imgTag = soupImg.findAll(limit=1)
     productImg = imgTag[0]["src"].strip()
