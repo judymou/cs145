@@ -7,7 +7,6 @@
 <meta name="keywords" content=" css, dropdowns, dropdown menu, drop-down, menu, navigation, nav, horizontal, vertical left-to-right, vertical right-to-left, horizontal linear, horizontal upwards, cross browser, internet explorer, ie, firefox, safari, opera, browser, lwis" />
 <meta name="description" content="Clean, standards-friendly, modular framework for dropdown menus" />
 <link href="/media/my_page_style.css" media="screen" rel="stylesheet" type="text/css" />
-
 <link href="/media/my_page_menu.css" media="screen" rel="stylesheet" type="text/css" />
 
 <!--[if lt IE 7]>
@@ -27,6 +26,7 @@
             </div>
         </td>
     </tr>
+    <div id="wrapper">
     <tr>
         <td>
             <div id="side_menu">
@@ -41,11 +41,11 @@
         </td>
         <td>
             <div id="content">
-                <table>
+                <table class="items">
                 <tr><th>Picture</th><th>Product Name</th><th>Store</th><th>Product Price</th><th>Last Price Change</th>
                 {% for item, price in query_results %}
                 <tr>
-                    <td><a href="http://www.google.com"><img src={{ item.img_url }}></a></td>
+                    <td><a href="/media/images/mama.jpg"><img src={{ item.img_url }} class="resize"></a></td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.store }}</td>
                     <td>{{ price }}</td>
@@ -56,7 +56,7 @@
                 </table>
             </div>
         </td>
-        <td>
+        <td class="url_box">
             <h3>Enter the url of the product that you wish to be tracked</h3>
 
             <div id="url_box">    
@@ -75,6 +75,7 @@
             </div>
         </td>
     </tr>
+    </div>
     <tr>
         <td colspan="3" style="vertical-align:bottom">
             <div id="footer">
