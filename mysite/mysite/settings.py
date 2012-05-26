@@ -58,7 +58,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = 'C:/Users/Lucia/Documents/cs145new/mysite/templates/media'
+MEDIA_ROOT = '/Users/belovedjudymou/Documents/schoolProject/cs145/mysite/templates/media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -120,7 +120,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/home/ubuntu/cs145/mysite/templates',
+    '/Users/belovedjudymou/Documents/schoolProject/cs145/mysite/templates',
 )
 
 INSTALLED_APPS = (
