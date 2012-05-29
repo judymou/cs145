@@ -24,22 +24,35 @@ body {
 h1 {
  margin-top:10px;
  padding-left:30px;
+ padding-bottom:10px;
  height:90px;
- border-bottom: solid 1px #000;
  font-weight: normal;
- font-size: 300%;
+ font-size: 14px;
  text-indent: 5px;
  letter-spacing: -1px;
 }
 
+.border
+{
+ border-bottom: solid 1px #000;
+}
+
+.home
+{
+ position:absolute;
+ right:50px;
+}
+
+#up{
+ //border-bottom: solid 1px #000;
+}
+
 .logo {
 margin-top:10px;
-margin-left:30px;
+margin-left:10px;
 }
 
-wrapper {
-}
-
+/*-- not in use anymore 
 #side_menu {
 width:200px;
 height:500px;
@@ -48,6 +61,7 @@ margin-left:30px;
 padding:0;
 color:#fff;
 }
+--*/
 
 ul.classic {
  list-style: none;
@@ -56,9 +70,10 @@ ul.classic {
 }
 
 #content { 
-width:500px;
+width:900px;
 height:500px;
 vertical-align:top;
+margin-left:20px;
 /*--background-image:url('images/items.png');
 background-position:center;--*/
 }
@@ -85,8 +100,11 @@ vertical-align:top;
 }
 
 .url_box {
+padding:40px;
 padding-top:10px;
+padding-left:0px;
 vertical-align:top;
+width:300px;
 }
 
 .items {
