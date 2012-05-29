@@ -22,10 +22,10 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/Users/Lucia/Documents/cs145new/mysite/sqlite3db/mydb.db',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'onomnomdb',                      # Or path to database file if using sqlite3.
+        'USER': 'judymou',                      # Not used with sqlite3.
+        'PASSWORD': 'onomnom',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -58,7 +58,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = 'C:/Users/Lucia/Documents/cs145new/mysite/templates/media'
+MEDIA_ROOT = '/home/ubuntu/cs145/mysite/templates/media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -135,9 +135,9 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'products',
+    'registration',
 )
 
-# A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
@@ -165,3 +165,11 @@ LOGGING = {
         },
     }
 }
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'shoponomnom@gmail.com'
+EMAIL_HOST_PASSWORD = 'onomnom!!!'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+ACCOUNT_ACTIVATION_DAYS = 7
