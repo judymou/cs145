@@ -13,11 +13,12 @@ urlpatterns = patterns('',
     ('^lost/$', views.lost),
     ('^accounts/profile/$', views.mypage),
     ('^users/.*$', views.mypage),
-    ('^accounts/', include('registration.backends.simple.urls')),
+    ('^accounts/', include('registration.backends.default.urls')),
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^mysite/', include('mysite.foo.urls')),
 
+    # testin
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

@@ -168,8 +168,7 @@ def parseUrl(givenUrl):
         raise NameError("Sorry we do not support that website")
 
 '''if __name__ == "__main__":
-    url = "http://www.target.com/p/Beats-by-Dr-Dre-Beats-Solo-Headphones-129424-00-with-ControlTalk-Black/-/A-13284286#?lnk=sc_qi_detaillink"
+    url = "http://www.amazon.com/Transformers-Season-Limited-Edition-Blu-ray/dp/B006JN87UC/ref=sr_1_3?ie=UTF8&qid=1337121354&sr=8-3"
 
     values = parseUrl(url)
-    print values[0]
-    print values[3]'''
+    print values'''

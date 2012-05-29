@@ -135,9 +135,9 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'products',
+    'registration',
 )
 
-# A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
@@ -165,3 +165,11 @@ LOGGING = {
         },
     }
 }
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'shoponomnom@gmail.com'
+EMAIL_HOST_PASSWORD = 'onomnom!!!'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+ACCOUNT_ACTIVATION_DAYS = 7
