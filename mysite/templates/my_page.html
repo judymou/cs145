@@ -36,7 +36,7 @@
                 <tr><th>Picture</th><th>Product Name</th><th>Store</th><th>Product Price</th><th>Last Price Change</th>
                 {% for item, price in query_results %}
                 <tr>
-                    <td><a href="/media/images/mama.jpg"><img src={{ item.img_url }} class="resize"></a></td>
+                    <td><a href={{ item.url }}><img src={{ item.img_url }} class="resize"></a></td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.store }}</td>
                     <td>{{ price }}</td>
