@@ -29,6 +29,12 @@ padding-top: 50px;
 
 fieldset { border: none; }
 
+.align{
+position:absolute;
+right:0px;
+margin-top:30px;
+}
+
 #menu {
 float:left;
 width:100%;
