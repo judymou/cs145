@@ -58,7 +58,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = 'C:/Users/Lucia/Documents/cs145new/mysite/templates/media'
+MEDIA_ROOT = '/home/ubuntu/cs145/mysite/templates/media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
