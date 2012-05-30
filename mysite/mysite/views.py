@@ -8,6 +8,7 @@ from mysite.forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from decimal import *
+from tagging.models import Tag, TaggedItem
 
 def hello(request):
     return HttpResponse("Hello world")
@@ -41,6 +42,7 @@ def mypage(request):
                                         url=item['item_url'],
                                         img_url=item['img_url'],
                                         price_date=item['price_date'])
+                entry.set_tags(item['product_name'])
 
                 # query the item id
                 currentItem = Item.objects.filter(product_id=item['product_id'],
@@ -83,6 +85,23 @@ def mypage(request):
         query_results.append([result.item, price])
 
     return render_to_response('my_page.html', {'form': form, 'query_results': query_results}, context_instance=RequestContext(request)) 
+
+@login_required
+def display_tags(request, myTag):
+    # Build table containing all items with same tag
+    tag = Tag.objects.filter(name=myTag)
+    tagId = tag[0].id
+    taggedItems = TaggedItem.objects.filter(tag=tagId)
+
+    query_results = []
+    for result in taggedItems:
+        # Convert price to string to be displayed in my_page.html
+        item_id = result.object_id
+        item = Item.objects.filter(id=item_id)
+        price = "$%.02f" % item[0].price
+        query_results.append([item[0], price])
+
+    return render_to_response('tag.html', {'query_results': query_results}, context_instance=RequestContext(request))
 
 def product(request):
     error = False
