@@ -12,6 +12,7 @@ CREATE TABLE products_item (
     url varchar(200) NOT NULL,
     img_url varchar(200) NOT NULL,
     price_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    tags varchar(255) DEFAULT "a",
     UNIQUE (product_id, store),
     index product_identifier (product_id, store)
 );

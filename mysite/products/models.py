@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from tagging.fields import TagField
 from tagging.models import Tag
+from datetime import datetime
 
 # Create your models here.
 class Item(models.Model):
@@ -27,5 +28,5 @@ class TrackList(models.Model):
 class PriceHistory(models.Model):
     item = models.ForeignKey(Item)
     price = models.DecimalField(max_digits = 10, decimal_places=2)
-    price_date = models.DateField()
+    price_date=models.DateTimeField(default=datetime.now)
 

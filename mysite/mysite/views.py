@@ -2,13 +2,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.forms.util import ErrorList
-import datetime
+from datetime import datetime
 from products.models import *
 from mysite.forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from decimal import *
 from tagging.models import Tag, TaggedItem
+from datetime import date
 
 def hello(request):
     return HttpResponse("Hello world")
@@ -50,7 +51,8 @@ def mypage(request):
                 currentItemId = currentItem.values()[0]['id']
                 print "insert the new price to price history table"
                 PriceHistory.objects.create(item_id = currentItemId, 
-                                            price = item['product_price'])
+                                            price = item['product_price']
+                                            )
                 
             else :
                 oldItemInfo = result.values()[0]
@@ -102,6 +104,42 @@ def display_tags(request, myTag):
         query_results.append([item[0], price])
 
     return render_to_response('tag.html', {'query_results': query_results}, context_instance=RequestContext(request))
+
+@login_required
+def my_product(request, itemId):
+    # Build table containing all items with same tag
+    mainItems = []
+    item = Item.objects.filter(id=itemId)[0]
+    mainItems.append(item)
+    
+    item_tags = TaggedItem.objects.filter(object_id = itemId)
+    query_results = []
+    for t in item_tags:
+        similar_item = TaggedItem.objects.filter(tag_id = t.tag_id)
+        for s in similar_item:
+            query_results.append(s.object_id)
+    
+    print query_results    
+    query_items = []    
+    item_ids = list(set(query_results))
+    item_ids.remove(int(itemId))
+    for i in item_ids:
+        item = Item.objects.filter(id = i)
+        price = "$%.02f" % item[0].price
+        query_items.append([item[0], price])
+    print query_items
+    
+    history_table = []
+    print itemId
+    temp = PriceHistory.objects.filter(item_id = itemId)
+    for t in temp:
+        price = "$%.02f" % t.price
+        date = t.price_date
+        print price
+        print date
+        history_table.append([date, price])
+    
+    return render_to_response('my_product.html', {'mainItems': mainItems, 'query_items': query_items, 'history_table' : history_table}, context_instance=RequestContext(request))
 
 def product(request):
     error = False

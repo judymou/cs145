@@ -31,15 +31,39 @@
     </tr>
     <tr>
         <td>
+	    <div id="mainItem">
+		{% for item in mainItems %}
+                <tr>
+                    <td><a href={{ item.url }}><img src={{ item.img_url }} class="resize"></a></td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.store }}</td>
+                    <td>{{ item.price_date }}</td>
+		    {% for tag in item.get_tags %}
+		        <td><a href="/tag/{{tag}}" alt="{{tag}}" title="{{tag}}">{{tag}}</a></td>
+		    {%endfor%}
+                </tr>
+		{% endfor %}
+	    </div>
+	    <div id='pricehistory'>
+		<table class="history">
+                <tr><th>Date</th><th>Price</th>
+                {% for date, price in history_table %}
+                <tr>
+                    <td>{{ date }}</td>
+		    <td>{{ price}}</td>
+                </tr>
+                {% endfor %}
+                </tr>    
+                </table>
+	    </div>
             <div id="content">
                 <table class="items">
                 <tr><th>Picture</th><th>Product Name</th><th>Store</th><th>Product Price</th><th>Last Price Change</th><th>Tags</th>
-                {% for item, price in query_results %}
+                {% for item, price in query_items %}
                 <tr>
-                    <td><a href="/product/{{item.id}}"><img src={{ item.img_url }} class="resize"></a></td>
+                    <td><a href={{ item.url }}><img src={{ item.img_url }} class="resize"></a></td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.store }}</td>
-                    <td>{{ price }}</td>
                     <td>{{ item.price_date }}</td>
 		    {% for tag in item.get_tags %}
 		        <td><a href="/tag/{{tag}}" alt="{{tag}}" title="{{tag}}">{{tag}}</a></td>
@@ -71,7 +95,7 @@
     <tr>
         <td colspan="2" style="vertical-align:bottom">
             <div id="footer">
-            Copyright © 2012 Onomnom.com
+            Copyright Â© 2012 Onomnom.com
             </div>
         </td>
     </tr>
