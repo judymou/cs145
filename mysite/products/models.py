@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from tagging.fields import TagField
+from tagging.models import Tag
 
 # Create your models here.
 class Item(models.Model):
@@ -10,6 +12,13 @@ class Item(models.Model):
     url = models.URLField()
     img_url = models.URLField()
     price_date = models.DateField()
+    tags = TagField()
+
+    def get_tags(self):
+        return Tag.objects.get_for_object(self) 
+
+    def set_tags(self, tags):
+        Tag.objects.update_tags(self, tags)
 
 class TrackList(models.Model):
     user = models.ForeignKey(User)
