@@ -26,7 +26,7 @@ def parse_link(url):
             result = conn.execute(query)
             row = result.fetchone()
             conn.execute('insert into products_pricehistory (item_id, price) values (' + str(row['id']) + ', ' + str(productPrice) + ')')
-        elif productPrice < row['price']):
+        elif productPrice < row['price']:
             # Else update tables if new price is lower than old price
             conn.execute('update products_item set price =' + str(productPrice) + ', price_date = current_timestamp where id = ' + str(row['id']))
             myValues = (row['id'], productPrice)
