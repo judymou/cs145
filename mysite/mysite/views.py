@@ -122,10 +122,16 @@ def my_product(request, itemId):
         for s in similar_item:
             query_results.append(s.object_id)
     
-    # Just want to show first 7 recommendations and randomize
+    # Remove already tracked items
     query_items = []    
     item_ids = list(set(query_results))
     item_ids.remove(int(itemId))
+
+    already_tracked = TrackList.objects.filter(user_id=request.user.id)
+    for already in already_tracked:
+        item_ids.remove(int(already.item_id))
+
+    # Just want to show first 7 recommendations and randomize
     random.shuffle(item_ids)
     item_ids = item_ids[:7]
     for i in item_ids:
@@ -181,5 +187,20 @@ def lost(request):
     else:
         form = LoginForm(initial= {'email':'why_why@yahoo.com'})
     return render_to_response('lost.html', {'form': form}, context_instance=RequestContext(request))
+
+@login_required
+def track_item(request, itemId):
+    items = TrackList.objects.filter(user_id = request.user.id, item_id = itemId)
+    if (items.count() == 0):
+        TrackList.objects.create(user_id = request.user.id, item_id = itemId)
+    return HttpResponseRedirect('/mypage/') 
+
+@login_required
+def untrack_item(request, itemId):
+    items = TrackList.objects.filter(user_id = request.user.id, item_id = itemId)
+    for i in items:
+        i.delete()
+    return HttpResponseRedirect('/mypage/') 
+
 
 
