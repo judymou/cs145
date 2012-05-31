@@ -129,7 +129,8 @@ def my_product(request, itemId):
 
     already_tracked = TrackList.objects.filter(user_id=request.user.id)
     for already in already_tracked:
-        item_ids.remove(int(already.item_id))
+        if int(already.item_id) in item_ids:
+            item_ids.remove(int(already.item_id))
 
     # Just want to show first 7 recommendations and randomize
     random.shuffle(item_ids)
