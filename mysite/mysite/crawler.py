@@ -44,23 +44,23 @@ def fetch_urls(urlQueue, urlQueueMaySeen, limit, processed):
 
 if __name__ == "__main__":
     try: 
-        limit = Value('i', 200) #max limit of process it can run
+        limit = Value('i', 2000) #max limit of process it can run
         processed = Value('i', 0) # Number of URLs processed
         urlQueue = Queue() #all unprocessed url
         urlQueueMaySeen = Queue() #all url(might or might not seen)
         
 #        amazon = "http://www.amazon.com/Hamilton-Beach-51101B-Personal-Blender/dp/B0017XHSAE/ref=sr_1_1?ie=UTF8&qid=1335956312&sr=8-1"
-        express = "http://www.express.com/ikat-print-double-v-wedge-tee-45922-682/control/show/3/index.pro"
-#        forever21 = "http://www.forever21.com/Product/Product.aspx?BR=f21&Category=top&ProductID=2000038004&VariantID="
+        #express = "http://www.express.com/one-shoulder-draped-sleeve-dress-45754-709/control/page/2/show/3/index.pro"
+        forever21 = "http://www.forever21.com/Product/Product.aspx?BR=f21&Category=top&ProductID=2000038004&VariantID="
 #        bestbuy = "http://www.bestbuy.com/site/Garmin+-+n%26%23252%3Bvi+2455LMT+GPS/3054065.p?id=1218374933088&skuId=3054065&st=Garmin_GPS_offer_20120429&cp=1&lp=1"
         seen = {}
 #        seen[amazon] = True
-        seen[express] = True
-#        seen[forever21] = True
+#        seen[express] = True
+        seen[forever21] = True
 #        seen[bestbuy] = True
 #        urlQueue.put(amazon)  
-        urlQueue.put(express)
-#        urlQueue.put(forever21)
+#        urlQueue.put(express)
+        urlQueue.put(forever21)
 #        urlQueue.put(bestbuy)
         
         listProcess = []

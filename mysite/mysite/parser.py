@@ -1,49 +1,64 @@
 from django.core.mail import send_mail
 from webscraper import *
 from ConnectionPoolEngine import ConnectionPoolEngine
+from tagging.models import Tag, TaggedItem
+from products.models import *
+from datetime import date
+from django.contrib.auth.models import User
 
-def parse_link(url):
-    try:
-        conn = ConnectionPoolEngine().getPool().connect()
-        
-        itemDetails = parseUrl(url)
+def parse_link(myUrl):
+    try:        
+        itemDetails = parseUrl(myUrl)
         productName= itemDetails[0]
         productId= itemDetails[1]
         productPrice = str(itemDetails[2])
-        img_url = itemDetails[3]
+        my_img_url = itemDetails[3]
         storeName = itemDetails[4]
-        productPrice = round(float(productPrice), 3)
+        productPrice = str(round(float(productPrice), 3))
         
-        query = 'select id, price from products_item where product_id = \'' + str(productId) + "\' and store = \'" + str(storeName) + "\'"
-        result = conn.execute(query)
-        row = result.fetchone()
-        if (row == None):
-            # If item does not exist yet, insert into products_item database
-            # Also insert into products_pricehistory to start tracking price
-            conn.execute('insert into products_item (product_id, store, name, price, url, img_url) values ( \'' + str(productId) + '\', \'' + str(storeName) + '\', \'' + str(productName) + '\', ' + str(productPrice) + ', \'' + str(url) + '\', \'' + str(img_url) + '\')')
-            ### TODO ###
-            # Must be more efficient way of fetching new item id
-            result = conn.execute(query)
-            row = result.fetchone()
-            conn.execute('insert into products_pricehistory (item_id, price) values (' + str(row['id']) + ', ' + str(productPrice) + ')')
-        elif productPrice < row['price']:
+        # Check if item has already been added to database
+        result = Item.objects.filter(product_id = productId, 
+                                     store = storeName)
+        if (result.count() == 0):
+            # Create Item object
+            print "insert new item to products_item"
+            entry = Item.objects.create(product_id=productId,
+                                        store=storeName,
+                                        name=productName,
+                                        price=productPrice,
+                                        url=myUrl,
+                                        img_url=my_img_url,
+                                        price_date=date.today())
+
+            # Add tags
+            entry.set_tags(productName.lower())
+
+            # query the item id
+            currentItem = Item.objects.get(product_id=productId,
+                                           store=storeName)
+            currentItemId = currentItem.id
+            print "insert the new price to price history table"
+            PriceHistory.objects.create(item = currentItem, 
+                                        price = productPrice)
+        elif float(productPrice) <= float(result[0].price):
             # Else update tables if new price is lower than old price
-            conn.execute('update products_item set price =' + str(productPrice) + ', price_date = current_timestamp where id = ' + str(row['id']))
-            myValues = (row['id'], productPrice)
-            conn.execute('insert into products_pricehistory (item_id, price) values (' + str(row['id']) + ', ' + str(productPrice) + ')')
-            query = 'select user_id from products_tracklist where item_id = \'' + str(row['id']) + "\'"
-            result = conn.execute(query)
+            result[0].price = productPrice
+            entry = PriceHistory.objects.create(item=result[0],
+                                                price=productPrice)
+            # Get set of all users tracking this item
+            query = TrackList.objects.filter(item=result[0])
+
             ### TODO ###
             # Possibly add user email to tracklist to avoid the need to query again
             # Or use the email_user function of User model objects
-            for res in result:
-                query = 'select * from auth_user where id = \'' + str(res['user_id']) + "\'"
-                userResult = conn.execute(query)
-                user = userResult.fetchone()
-                send_mail('Price drop', 'Your item has dropped..buy now!', 'shopomnomnom@gmail.com', [str(user['email'])])
+            recipients = []
+            for tracklist in query:
+                myUser = tracklist.user
+                recipients.append(myUser.email)
+            print "Sending email"
+            send_mail('Price drop', 'Your item has dropped..buy now!', 'shopomnomnom@gmail.com', recipients)
+            print "Finished sending"
                 
-        result.close()
-        conn.close()
     except Exception, e:
         print str(e)
 
