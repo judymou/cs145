@@ -39,7 +39,8 @@ width:150px;
 }
 
 table {
-margin-bottom:30px;
+margin-bottom:15px;
+margin-top:15px;
 }
 
 table.recommend {
@@ -49,7 +50,7 @@ margin:5px;
 
 
 h2 {
-margin:5px;
+margin-top:20px;
 }
 
 </style>
@@ -132,12 +133,20 @@ margin:5px;
     <tr>
         <td>
         <table class="comments">
-	        {% for item in mainItems %} 
-	        {% load comments %}
-		<h2>Product Comments</h2>
-		<td>{% render_comment_list for item %}</td>
-		<h2>Comment on this item</h2>
-		{% render_comment_form for item %}
+        {% for item in mainItems %} 
+        {% load comments %}
+            <tr>
+                <td>
+                <h2>Product Comments</h2>
+                {% render_comment_list for item %}
+                </td>
+            </tr>
+        <tr>
+            <td>
+            <h2>Comment on this item</h2>
+            {% render_comment_form for item %}
+            </td>
+        </tr>
 		{% endfor %}
         </table>
         </td>
