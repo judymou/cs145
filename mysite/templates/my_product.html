@@ -15,8 +15,23 @@
 <script type="text/javascript" src="js/jquery/jquery.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.dropdown.js"></script>
 <![endif]-->
-
+<style type="text/css">
+ul {
+list-style-type:none;
+margin:0;
+padding:0;
+}
+li {
+display:inline
+}
+div {
+display:block
+}
+#
+</style>
 </head>
+
+
 <body>
 
 <div id="container">
@@ -26,7 +41,7 @@
             <h1><img src="/media/images/mypage.png"></h1>
         </td>
         <td class="border">
-            <p class="home"> <a href="/welcome">Home<a>/<a href="/accounts/logout">Sign out<a> </p>
+            <p class="home"> <a href="/welcome">Home</a>  <a href="/mypage">My Page</a>  <a href="/accounts/logout">Sign out</a> </p>
         </td>
     </tr>
     <tr>
@@ -41,6 +56,7 @@
 		    {% for tag in item.get_tags %}
 		        <td><a href="/tag/{{tag}}" alt="{{tag}}" title="{{tag}}">{{tag}}</a></td>
 		    {%endfor%}
+		    
                 </tr>
 		{% endfor %}
 	    </div>
@@ -57,18 +73,33 @@
                 </table>
 	    </div>
 	    <h2>Recommendations</h2>
-            <div class="content">
-	      <ul id="recommend">
-                {% for item, price in query_items %}
-                <li>
-                    <td><a href={{ item.url }}><img src={{ item.img_url }} class="resize"></a></td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.store }}</td>
-		    <td>{{ price }}</td>
-                </li>
-                {% endfor %}
+	    <div id="recommend">
+	      
+	      <ul>
+		{% for item, price in query_items %}
+		<li>
+		    <table id="recommendation">
+			<tr><td><a href="/product/{{item.id}}"><img src={{ item.img_url }} class="resize"></a></td></tr>		
+			<tr><td>{{ item.name }}</td></tr>
+			<tr><td>{{ item.store }}</td></tr>
+			<tr><td>{{ price }}</td></tr> 
+			<p><a href="/track/{{item.id}}">track</a>  <a href="/untrack/{{item.id}}">untrack </a></p>
+		    </table>
+		</li>
+		{% endfor %}
 	      </ul>
-            </div>
+
+	    </div>
+
+	    <div>
+	        {% for item in mainItems %} 
+	        {% load comments %}
+		<h2>Product Comments</h2>
+		<td>{% render_comment_list for item %}</td>
+		<h2>Comment on this item</h2>
+		{% render_comment_form for item %}
+		{% endfor %}
+	    </div>
         </td>
     </tr>
     <tr>
@@ -80,6 +111,8 @@
     </tr>
 </table>
 </div>
+
+
 
 </body>
 </html>
