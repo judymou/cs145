@@ -40,11 +40,11 @@ def parse_link(myUrl):
             print "insert the new price to price history table"
             PriceHistory.objects.create(item = currentItem, 
                                         price = productPrice)
-        elif float(productPrice) < float(result[0].price):
+        elif float(productPrice) <= float(result[0].price):
             # Else update tables if new price is lower than old price
             result[0].price = productPrice
-            entry = PriceHistory.objects.create(item=result[0],
-                                                price=productPrice)
+            #entry = PriceHistory.objects.create(item=result[0],
+            #                                    price=productPrice)
             # Get set of all users tracking this item
             query = TrackList.objects.filter(item=result[0])
 
@@ -53,14 +53,23 @@ def parse_link(myUrl):
             # Or use the email_user function of User model objects
             recipients = []
             for tracklist in query:
-                myUser = tracklist.user
-                recipients.append(myUser.email)
-            print "Sending email"
-            price = "$%.02f" % result[0].price
-            title = "An item has dropped in price"
-            message = "%s is now %s. Click on the following link to visit there now %s" % (result[0].name, price, result[0].url)
-            send_mail(title, message, 'shopomnomnom@gmail.com', recipients)
-            print "Finished sending"
+                # Email user if new price is lower than desired price or if
+                # user has no notification price
+                if tracklist.desired_price != None:
+                    if float(productPrice) <= float(tracklist.desired_price):
+                        myUser = tracklist.user
+                        recipients.append(myUser.email)
+                else:
+                    myUser = tracklist.user
+                    recipients.append(myUser.email)
+            
+            if len(recipients) > 0:
+                print "Sending email"
+                price = "$%.02f" % result[0].price
+                title = "An item has dropped in price"
+                message = "%s is now %s. Click on the following link to visit there now %s" % (result[0].name, price, result[0].url)
+                send_mail(title, message, 'shopomnomnom@gmail.com', recipients)
+                print "Finished sending"
                 
     except Exception, e:
         print str(e)

@@ -16,6 +16,9 @@ class ProductForm(forms.Form):
 class Lost(forms.Form):
     email = forms.EmailField()
 
+class PriceForm(forms.Form):
+    price = forms.DecimalField()
+
 class ItemForm(forms.Form):
     item_url = forms.URLField()
 

@@ -70,25 +70,49 @@ margin:5px;
     </tr>
     <tr>
         <td>
-        <table>
+	  <h2>Item Details</h2>
+        <table width=100%>
 		{% for item in mainItems %}
                 <tr>
-                    <td><a href={{ item.url }}><img src={{ item.img_url }} class="resize"></a></td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.store }}</td>
-                    <td>{{ item.price_date }}</td>
+                    <td>
+		      <li><a href={{ item.url }}><img src={{ item.img_url }} class="resize"></a></li>
+		      <li><a href="/untrack/{{item.id}}">Untrack Me</a></li>
+		    </td>
+		<td>
+                    <li><b>Product Name</b> : {{ item.name }}</li>
+                    <li><b>Store Name</b>   : {{ item.store }}</li>
+                    <li><b>Last Updated</b> : {{ item.price_date }}</li>
+		    <li><b>Relevant Tags</b>:</li>
 		    {% for tag in item.get_tags %}
-		        <td><a href="/tag/{{tag}}" alt="{{tag}}" title="{{tag}}">{{tag}}</a></td>
+		        <li><a href="/tag/{{tag}}" alt="{{tag}}" title="{{tag}}">{{tag}}</a></li>
 		    {%endfor%}
-		    
-                </tr>
+		</td>
+		<td class="price_box">
+		      <h3>Notify me when price drops below: {{ desired_price }}</h3>
+		      <div id="price_box">    
+			{% if form.errors %}
+			<p style="color: red;">
+			  Please correct the error{{ form.errors|pluralize }} below.
+			</p>
+			{% endif %}
+
+			<form action="" method="post">{% csrf_token%}
+			  <table>
+			    {{ form.as_table }}
+			  </table>
+			  <input type="submit" value="Submit">
+			</form>
+		       </div>
+		</td>
+		</tr>
 		{% endfor %}
         </table>
         </td>
     </tr>
     <tr>
         <td>
-		<table>
+	  <h2>Price History</h2> 
+	  <table>
                 <tr><td><b>Date</td><td><b>Price</td></tr>
                 <tr>
                 {% for date, price in history_table %}
@@ -96,7 +120,7 @@ margin:5px;
                     <td>{{ price}}</td>
                 {% endfor %}
                 </tr>    
-        </table>
+	  </table>
         </td>
     </tr>
     <tr>
@@ -109,7 +133,7 @@ margin:5px;
 		    <table>
                 <tr>
                     <td>
-                        <a href="/product/{{item.id}}"><img src={{ item.img_url }} class="resize"></a>	
+                        <a href={{ item.url }}><img src={{ item.img_url }} class="resize"></a>	
                     </td>
                 </tr>
                 <tr>
@@ -118,7 +142,7 @@ margin:5px;
                             <li>{{ item.name }}</li>
                             <li>{{ item.store }}</li>
                             <li>{{ price }}</li>		
-                            <li><p><a href="/track/{{item.id}}">track</a>  <a href="/untrack/{{item.id}}">untrack </a></p></li>
+                            <li><p><a href="/track/{{item.id}}">Track Me!</a></p></li>
                         </ul>
                     </td>
                 </tr>

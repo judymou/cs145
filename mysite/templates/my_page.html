@@ -37,7 +37,7 @@
                 {% for item, price in query_results %}
                 <tr>
                     <td><a href="/product/{{item.id}}"><img src={{ item.img_url }} class="resize"></a></td>
-		    <td><a href="/untrack/{{item.id}}">untrack </a></td>
+		    <td><a href="/untrack/{{item.id}}">Untrack Me</a></td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.store }}</td>
                     <td>{{ price }}</td>

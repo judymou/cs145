@@ -24,6 +24,7 @@ class Item(models.Model):
 class TrackList(models.Model):
     user = models.ForeignKey(User)
     item = models.ForeignKey(Item)
+    desired_price = models.DecimalField(max_digits = 20, decimal_places=2)
     
 class PriceHistory(models.Model):
     item = models.ForeignKey(Item)

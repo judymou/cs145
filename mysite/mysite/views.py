@@ -110,7 +110,22 @@ def display_tags(request, myTag):
 
 @login_required
 def my_product(request, itemId):
-    # Build table containing all items with same tag
+    # Default form
+    form = PriceForm(initial={'price':'Enter new notification price'})
+
+    # If user enters a notification price, update TrackList
+    if request.method == 'POST':
+        form = PriceForm(request.POST)
+        if form.is_valid():
+            item = form.cleaned_data
+            desired_price = item['price']
+            tracked = TrackList.objects.get(user_id=request.user.id,
+                                            item_id=itemId)
+            tracked.desired_price = desired_price
+            tracked.save()
+            return HttpResponseRedirect('/product/'+str(itemId))
+
+    # Otherwise, build table containing all items with same tag
     mainItems = []
     item = Item.objects.filter(id=itemId)[0]
     mainItems.append(item)
@@ -129,6 +144,13 @@ def my_product(request, itemId):
 
     already_tracked = TrackList.objects.filter(user_id=request.user.id)
     for already in already_tracked:
+        # When item is current item, get notification price
+        if int(already.item_id) == int(itemId):
+            if already.desired_price == None:
+                desired_price = "No price specified"
+            else:
+                desired_price = "$%.02f" % already.desired_price
+        # Else remove other tracked items
         if int(already.item_id) in item_ids:
             item_ids.remove(int(already.item_id))
 
@@ -147,7 +169,7 @@ def my_product(request, itemId):
         date = t.price_date
         history_table.append([date, price])
     
-    return render_to_response('my_product.html', {'mainItems': mainItems, 'query_items': query_items, 'history_table' : history_table}, context_instance=RequestContext(request))
+    return render_to_response('my_product.html', {'form': form, 'mainItems': mainItems, 'query_items': query_items, 'desired_price': desired_price, 'history_table' : history_table}, context_instance=RequestContext(request))
 
 def product(request):
     error = False
