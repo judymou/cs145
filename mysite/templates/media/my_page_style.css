@@ -70,12 +70,9 @@ ul.classic {
 }
 
 #content { 
-width:900px;
 height:500px;
 vertical-align:top;
 margin-left:20px;
-/*--background-image:url('images/items.png');
-background-position:center;--*/
 }
 
 #url_box {
@@ -99,12 +96,16 @@ padding-top:10px;
 vertical-align:top;
 }
 
+.content{
+width:80%;
+}
+
 .url_box {
 padding:40px;
 padding-top:10px;
 padding-left:0px;
 vertical-align:top;
-width:300px;
+width:20%;
 }
 
 .items {

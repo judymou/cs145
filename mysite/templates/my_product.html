@@ -15,6 +15,7 @@
 <script type="text/javascript" src="js/jquery/jquery.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.dropdown.js"></script>
 <![endif]-->
+<!--
 <style type="text/css">
 ul {
 list-style-type:none;
@@ -24,10 +25,33 @@ padding:0;
 li {
 display:inline
 }
+
 div {
 display:block
 }
 #
+</style>
+-->
+<style>
+li {
+list-style:none;
+width:150px;
+}
+
+table {
+margin-bottom:30px;
+}
+
+table.recommend {
+margin:5px;
+}
+
+
+
+h2 {
+margin:5px;
+}
+
 </style>
 </head>
 
@@ -46,7 +70,7 @@ display:block
     </tr>
     <tr>
         <td>
-	    <div id="mainItem">
+        <table>
 		{% for item in mainItems %}
                 <tr>
                     <td><a href={{ item.url }}><img src={{ item.img_url }} class="resize"></a></td>
@@ -59,39 +83,55 @@ display:block
 		    
                 </tr>
 		{% endfor %}
-	    </div>
-	    <div id='pricehistory'>
-		<table class="history">
-                <tr><th>Date</th><th>Price</th>
-                {% for date, price in history_table %}
+        </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+		<table>
+                <tr><td><b>Date</td><td><b>Price</td></tr>
                 <tr>
+                {% for date, price in history_table %}
                     <td>{{ date }}</td>
-		    <td>{{ price}}</td>
-                </tr>
+                    <td>{{ price}}</td>
                 {% endfor %}
                 </tr>    
-                </table>
-	    </div>
-	    <h2>Recommendations</h2>
-	    <div id="recommend">
-	      
-	      <ul>
+        </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+	    <h2>Recommendations</h2>  
+	    <table class="recommend">
+        <tr>
 		{% for item, price in query_items %}
-		<li>
-		    <table id="recommendation">
-			<tr><td><a href="/product/{{item.id}}"><img src={{ item.img_url }} class="resize"></a></td></tr>		
-			<tr><td>{{ item.name }}</td></tr>
-			<tr><td>{{ item.store }}</td></tr>
-			<tr><td>{{ price }}</td></tr> 
-			<p><a href="/track/{{item.id}}">track</a>  <a href="/untrack/{{item.id}}">untrack </a></p>
-		    </table>
-		</li>
+        <td>
+		    <table>
+                <tr>
+                    <td>
+                        <a href="/product/{{item.id}}"><img src={{ item.img_url }} class="resize"></a>	
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li>{{ item.name }}</li>
+                            <li>{{ item.store }}</li>
+                            <li>{{ price }}</li>		
+                            <li><p><a href="/track/{{item.id}}">track</a>  <a href="/untrack/{{item.id}}">untrack </a></p></li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </td>
 		{% endfor %}
-	      </ul>
-
-	    </div>
-
-	    <div>
+        </tr>
+	    </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <table class="comments">
 	        {% for item in mainItems %} 
 	        {% load comments %}
 		<h2>Product Comments</h2>
@@ -99,13 +139,13 @@ display:block
 		<h2>Comment on this item</h2>
 		{% render_comment_form for item %}
 		{% endfor %}
-	    </div>
+        </table>
         </td>
     </tr>
     <tr>
         <td colspan="2" style="vertical-align:bottom">
             <div id="footer">
-            Copyright Â© 2012 Onomnom.com
+            Copyright © 2012 Onomnom.com
             </div>
         </td>
     </tr>
