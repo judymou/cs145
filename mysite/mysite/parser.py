@@ -40,7 +40,7 @@ def parse_link(myUrl):
             print "insert the new price to price history table"
             PriceHistory.objects.create(item = currentItem, 
                                         price = productPrice)
-        elif float(productPrice) <= float(result[0].price):
+        elif float(productPrice) < float(result[0].price):
             # Else update tables if new price is lower than old price
             result[0].price = productPrice
             entry = PriceHistory.objects.create(item=result[0],
