@@ -26,17 +26,18 @@
             <h1><img src="/media/images/mypage.png"></h1>
         </td>
         <td class="border">
-            <p class="home"> <a href="/welcome">Home<a>/<a href="/accounts/logout">Sign out<a> </p>
+            <p class="home"> <a href="/welcome">Home<a> <a href="/mypage">My Page<a> <a href="/accounts/logout">Sign out<a> </p>
         </td>
     </tr>
     <tr>
         <td>
             <div id="content">
                 <table class="items">
-                <tr><th>Picture</th><th>Product Name</th><th>Store</th><th>Product Price</th><th>Last Price Change</th><th>Tags</th>
+                <tr><th>Picture</th><th>    </th><th>Product Name</th><th>Store</th><th>Product Price</th><th>Last Price Change</th><th>Tags</th>
                 {% for item, price in query_results %}
                 <tr>
                     <td><a href="/product/{{item.id}}"><img src={{ item.img_url }} class="resize"></a></td>
+		    <td><a href="/untrack/{{item.id}}">untrack </a></td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.store }}</td>
                     <td>{{ price }}</td>
