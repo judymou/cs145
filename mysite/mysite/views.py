@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from decimal import *
 from tagging.models import Tag, TaggedItem
 from datetime import date
+import random
 
 def hello(request):
     return HttpResponse("Hello world")
@@ -37,13 +38,15 @@ def mypage(request):
                 # insert product info in products_item table
                 print "insert new item to products_item"
                 entry = Item.objects.create(product_id=item['product_id'],
-                                        store=item['store_name'],
-                                        name=item['product_name'],
-                                        price=item['product_price'],
-                                        url=item['item_url'],
-                                        img_url=item['img_url'],
-                                        price_date=item['price_date'])
-                entry.set_tags(item['product_name'])
+                                            store=item['store_name'],
+                                            name=item['product_name'],
+                                            price=item['product_price'],
+                                            url=item['item_url'],
+                                            img_url=item['img_url'],
+                                            price_date=item['price_date'])
+
+                # Add tags
+                entry.set_tags(item['product_name'].lower())
 
                 # query the item id
                 currentItem = Item.objects.filter(product_id=item['product_id'],
@@ -119,24 +122,22 @@ def my_product(request, itemId):
         for s in similar_item:
             query_results.append(s.object_id)
     
-    print query_results    
+    # Just want to show first 7 recommendations and randomize
     query_items = []    
     item_ids = list(set(query_results))
     item_ids.remove(int(itemId))
+    random.shuffle(item_ids)
+    item_ids = item_ids[:7]
     for i in item_ids:
         item = Item.objects.filter(id = i)
         price = "$%.02f" % item[0].price
         query_items.append([item[0], price])
-    print query_items
     
     history_table = []
-    print itemId
     temp = PriceHistory.objects.filter(item_id = itemId)
     for t in temp:
         price = "$%.02f" % t.price
         date = t.price_date
-        print price
-        print date
         history_table.append([date, price])
     
     return render_to_response('my_product.html', {'mainItems': mainItems, 'query_items': query_items, 'history_table' : history_table}, context_instance=RequestContext(request))

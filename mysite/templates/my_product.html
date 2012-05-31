@@ -56,39 +56,18 @@
                 </tr>    
                 </table>
 	    </div>
-            <div id="content">
-                <table class="items">
-                <tr><th>Picture</th><th>Product Name</th><th>Store</th><th>Product Price</th><th>Last Price Change</th><th>Tags</th>
+	    <h2>Recommendations</h2>
+            <div class="content">
+	      <ul id="recommend">
                 {% for item, price in query_items %}
-                <tr>
+                <li>
                     <td><a href={{ item.url }}><img src={{ item.img_url }} class="resize"></a></td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.store }}</td>
-                    <td>{{ item.price_date }}</td>
-		    {% for tag in item.get_tags %}
-		        <td><a href="/tag/{{tag}}" alt="{{tag}}" title="{{tag}}">{{tag}}</a></td>
-		    {%endfor%}
-                </tr>
+		    <td>{{ price }}</td>
+                </li>
                 {% endfor %}
-                </tr>    
-                </table>
-            </div>
-        </td>
-        <td class="url_box">
-            <h3>Enter the url of the product that you wish to be tracked</h3>
-            <div id="url_box">    
-            {% if form.errors %}
-                <p style="color: red;">
-                    Please correct the error{{ form.errors|pluralize }} below.
-                </p>
-            {% endif %}
-
-            <form action="" method="post">{% csrf_token%}
-                <table>
-                    {{ form.as_table }}
-                </table>
-                <input type="submit" value="Submit">
-            </form>
+	      </ul>
             </div>
         </td>
     </tr>
