@@ -89,7 +89,8 @@ margin-top:20px;
 		    {%endfor%}
 		</td>
 		<td class="price_box">
-		      <h3>Notify me when price drops below: {{ desired_price }}</h3>
+		      <h4>Current price: {{ price }}</h4>
+		      <h4>Notify me when price drops below: {{ desired_price }}</h4>
 		      <div id="price_box">    
 			{% if form.errors %}
 			<p style="color: red;">

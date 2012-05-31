@@ -128,6 +128,7 @@ def my_product(request, itemId):
     # Otherwise, build table containing all items with same tag
     mainItems = []
     item = Item.objects.filter(id=itemId)[0]
+    price = "$%.02f" % item.price
     mainItems.append(item)
     
     item_tags = TaggedItem.objects.filter(object_id = itemId)
@@ -169,7 +170,7 @@ def my_product(request, itemId):
         date = t.price_date
         history_table.append([date, price])
     
-    return render_to_response('my_product.html', {'form': form, 'mainItems': mainItems, 'query_items': query_items, 'desired_price': desired_price, 'history_table' : history_table}, context_instance=RequestContext(request))
+    return render_to_response('my_product.html', {'form': form, 'mainItems': mainItems, 'price': price, 'query_items': query_items, 'desired_price': desired_price, 'history_table' : history_table}, context_instance=RequestContext(request))
 
 def product(request):
     error = False
