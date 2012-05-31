@@ -56,7 +56,10 @@ def parse_link(myUrl):
                 myUser = tracklist.user
                 recipients.append(myUser.email)
             print "Sending email"
-            send_mail('Price drop', 'Your item has dropped..buy now!', 'shopomnomnom@gmail.com', recipients)
+            price = "$%.02f" % result[0].price
+            title = "An item has dropped in price"
+            message = "%s is now %s. Click on the following link to visit there now %s" % (result[0].name, price, result[0].url)
+            send_mail(title, message, 'shopomnomnom@gmail.com', recipients)
             print "Finished sending"
                 
     except Exception, e:
