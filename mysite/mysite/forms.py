@@ -1,7 +1,9 @@
 from django import forms
+from django.forms.extras.widgets import SelectDateWidget
 from mysite.webscraper import *
 from datetime import date
 from products.models import *
+import datetime
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=30)
@@ -18,6 +20,9 @@ class Lost(forms.Form):
 
 class PriceForm(forms.Form):
     price = forms.DecimalField()
+    
+class EndDateForm(forms.Form):
+    end_date = forms.DateField(widget=SelectDateWidget())
 
 class ItemForm(forms.Form):
     item_url = forms.URLField()

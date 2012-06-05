@@ -18,9 +18,10 @@ CREATE TABLE products_item (
 CREATE TABLE products_tracklist (
     id integer NOT NULL PRIMARY KEY,
     user_id integer NOT NULL REFERENCES auth_user (id),
-    item_id integer NOT NULL REFERENCES products_item (id)
-);
-
+    item_id integer NOT NULL REFERENCES products_item (id),
+    desired_price decimal,
+    end_date datetime);
+    
 create table products_pricehistory (
     id integer not null primary key,
     item_id integer not null references products_item (id),

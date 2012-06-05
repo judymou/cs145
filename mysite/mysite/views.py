@@ -112,18 +112,31 @@ def display_tags(request, myTag):
 def my_product(request, itemId):
     # Default form
     form = PriceForm(initial={'price':'Enter new notification price'})
+    form2 = EndDateForm()#initial={'end_date':'Enter when to stop tracking'})
 
     # If user enters a notification price, update TrackList
+    # If user enters end date, update TrackList as well
     if request.method == 'POST':
-        form = PriceForm(request.POST)
-        if form.is_valid():
-            item = form.cleaned_data
-            desired_price = item['price']
-            tracked = TrackList.objects.get(user_id=request.user.id,
-                                            item_id=itemId)
-            tracked.desired_price = desired_price
-            tracked.save()
-            return HttpResponseRedirect('/product/'+str(itemId))
+        if "price_box" in request.POST:
+            form = PriceForm(request.POST)
+            if form.is_valid():
+                item = form.cleaned_data
+                desired_price = item['price']
+                tracked = TrackList.objects.get(user_id=request.user.id,
+                                                item_id=itemId)
+                tracked.desired_price = desired_price
+                tracked.save()
+                return HttpResponseRedirect('/product/'+str(itemId))
+        else:
+            form = EndDateForm(request.POST)
+            if form.is_valid():
+                item = form.cleaned_data
+                end_date = item['end_date']
+                tracked = TrackList.objects.get(user_id=request.user.id,
+                                                item_id=itemId)
+                tracked.end_date = end_date
+                tracked.save()
+                return HttpResponseRedirect('/product/'+str(itemId))
 
     # Otherwise, build table containing all items with same tag
     mainItem = Item.objects.get(id=itemId)
@@ -142,12 +155,20 @@ def my_product(request, itemId):
 
     already_tracked = TrackList.objects.filter(user_id=request.user.id)
     for already in already_tracked:
-        # When item is current item, get notification price
+        # When item is current item, get notification price and end date
         if int(already.item_id) == int(itemId):
+            print already.item_id
+            print already.user_id
+            print already.desired_price
+            print already.end_date
             if already.desired_price == None:
                 desired_price = "No price specified"
             else:
                 desired_price = "$%.02f" % already.desired_price
+            if already.end_date== None:
+                end_date = "No end date specified"
+            else:
+                end_date = already.end_date
         # Else remove other tracked items
         if int(already.item_id) in item_ids:
             item_ids.remove(int(already.item_id))
@@ -176,7 +197,7 @@ def my_product(request, itemId):
         date = t.price_date
         history_table.append([date, price])
     
-    return render_to_response('my_product.html', {'form': form, 'mainItem': mainItem, 'price': price, 'recommend_list': recommend_list, 'same_list': same_items, 'desired_price': desired_price, 'history_table' : history_table}, context_instance=RequestContext(request))
+    return render_to_response('my_product.html', {'form': form, 'form2': form2, 'mainItem': mainItem, 'price': price, 'recommend_list': recommend_list, 'same_list': same_items, 'desired_price': desired_price, 'end_date': end_date, 'history_table' : history_table}, context_instance=RequestContext(request))
 
 def product(request):
     error = False
