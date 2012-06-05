@@ -126,20 +126,17 @@ def my_product(request, itemId):
             return HttpResponseRedirect('/product/'+str(itemId))
 
     # Otherwise, build table containing all items with same tag
-    mainItems = []
-    item = Item.objects.filter(id=itemId)[0]
-    price = "$%.02f" % item.price
-    mainItems.append(item)
+    mainItem = Item.objects.get(id=itemId)
+    price = "$%.02f" % mainItem.price
     
+    # Create recommendation list
     item_tags = TaggedItem.objects.filter(object_id = itemId)
     query_results = []
     for t in item_tags:
-        similar_item = TaggedItem.objects.filter(tag_id = t.tag_id)
-        for s in similar_item:
-            query_results.append(s.object_id)
+        query_results +=(TaggedItem.objects.filter(tag_id = t.tag_id).values_list("object_id", flat=True))
     
     # Remove already tracked items
-    query_items = []    
+    recommend_list = []    
     item_ids = list(set(query_results))
     item_ids.remove(int(itemId))
 
@@ -159,10 +156,19 @@ def my_product(request, itemId):
     random.shuffle(item_ids)
     item_ids = item_ids[:7]
     for i in item_ids:
-        item = Item.objects.filter(id = i)
-        price = "$%.02f" % item[0].price
-        query_items.append([item[0], price])
+        item = Item.objects.get(id = i)
+        price = "$%.02f" % item.price
+        recommend_list.append([item, price])
     
+    # Build comparison list
+    query_list = list(Item.objects.filter(name=mainItem.name))
+    query_list.remove(mainItem)
+    same_items = []
+    for item in query_list:
+        price = "$%.02f" % item.price
+        same_items.append([item, price])
+
+    # Build price history
     history_table = []
     temp = PriceHistory.objects.filter(item_id = itemId)
     for t in temp:
@@ -170,7 +176,7 @@ def my_product(request, itemId):
         date = t.price_date
         history_table.append([date, price])
     
-    return render_to_response('my_product.html', {'form': form, 'mainItems': mainItems, 'price': price, 'query_items': query_items, 'desired_price': desired_price, 'history_table' : history_table}, context_instance=RequestContext(request))
+    return render_to_response('my_product.html', {'form': form, 'mainItem': mainItem, 'price': price, 'recommend_list': recommend_list, 'same_list': same_items, 'desired_price': desired_price, 'history_table' : history_table}, context_instance=RequestContext(request))
 
 def product(request):
     error = False

@@ -73,18 +73,17 @@ margin-top:20px;
         <td>
 	  <h2>Item Details</h2>
         <table width=100%>
-		{% for item in mainItems %}
                 <tr>
                     <td>
-		      <li><a href={{ item.url }}><img src={{ item.img_url }} class="resize"></a></li>
-		      <li><a href="/untrack/{{item.id}}">Untrack Me</a></li>
+		      <li><a href={{ mainItem.url }}><img src={{ mainItem.img_url }} class="resize"></a></li>
+		      <li><a href="/untrack/{{mainItem.id}}">Untrack Me</a></li>
 		    </td>
 		<td>
-                    <li><b>Product Name</b> : {{ item.name }}</li>
-                    <li><b>Store Name</b>   : {{ item.store }}</li>
-                    <li><b>Last Updated</b> : {{ item.price_date }}</li>
+                    <li><b>Product Name</b> : {{ mainItem.name }}</li>
+                    <li><b>Store Name</b>   : {{ mainItem.store }}</li>
+                    <li><b>Last Updated</b> : {{ mainItem.price_date }}</li>
 		    <li><b>Relevant Tags</b>:</li>
-		    {% for tag in item.get_tags %}
+		    {% for tag in mainItem.get_tags %}
 		        <li><a href="/tag/{{tag}}" alt="{{tag}}" title="{{tag}}">{{tag}}</a></li>
 		    {%endfor%}
 		</td>
@@ -107,7 +106,6 @@ margin-top:20px;
 		       </div>
 		</td>
 		</tr>
-		{% endfor %}
         </table>
         </td>
     </tr>
@@ -127,10 +125,40 @@ margin-top:20px;
     </tr>
     <tr>
         <td>
+	    <h2>Compare Prices</h2>  
+	    <table class="similar">
+        <tr>
+		{% for item, price in same_list %}
+        <td>
+		    <table>
+                <tr>
+                    <td>
+                        <a href={{ item.url }}><img src={{ item.img_url }} class="resize"></a>	
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li>{{ item.name }}</li>
+                            <li>{{ item.store }}</li>
+                            <li>{{ price }}</li>		
+                            <li><p><a href="/track/{{item.id}}">Track Me!</a></p></li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </td>
+		{% endfor %}
+        </tr>
+	    </table>
+        </td>
+    </tr>
+    <tr>
+    	<td>
 	    <h2>Recommendations</h2>  
 	    <table class="recommend">
         <tr>
-		{% for item, price in query_items %}
+		{% for item, price in recommend_list %}
         <td>
 		    <table>
                 <tr>
@@ -158,21 +186,19 @@ margin-top:20px;
     <tr>
         <td>
         <table class="comments">
-        {% for item in mainItems %} 
         {% load comments %}
             <tr>
                 <td>
                 <h2>Product Comments</h2>
-                {% render_comment_list for item %}
+                {% render_comment_list for mainItem %}
                 </td>
             </tr>
         <tr>
             <td>
             <h3>Comment on this item</h3>
-            {% render_comment_form for item %}
+            {% render_comment_form for mainItem %}
             </td>
         </tr>
-		{% endfor %}
         </table>
         </td>
     </tr>
